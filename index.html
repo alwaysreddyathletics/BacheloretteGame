@@ -29,7 +29,7 @@
     }
     .screen.active { display: flex; }
 
-    /* ── SIDEBARS (pink screens) ── */
+    /* ── SIDEBARS ── */
     .sidebar-layout {
       position: relative;
       background: var(--pink-bg);
@@ -52,13 +52,13 @@
 
     /* ── START SCREEN ── */
     #start-screen {
-      padding: 64px calc(var(--sidebar-w) + 32px);
+      padding: 56px calc(var(--sidebar-w) + 28px);
       justify-content: center;
       gap: 0;
     }
 
     .start-title {
-      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-size: clamp(2rem, 6vw, 4rem);
       color: var(--red);
       text-align: center;
       font-weight: bold;
@@ -66,20 +66,20 @@
     }
 
     .start-names {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--red-mid);
       text-align: center;
       font-style: italic;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
 
     .rules-box {
       background: white;
       border-radius: 8px;
-      padding: 28px 36px;
+      padding: 24px 28px;
       max-width: 520px;
       width: 100%;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
       box-shadow: 0 4px 20px rgba(122,21,21,0.12);
     }
 
@@ -89,21 +89,21 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 3px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .rules-box ol {
       padding-left: 18px;
       color: #555;
       line-height: 2;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
     .btn-red {
       background: var(--red);
       color: white;
       border: none;
-      padding: 18px 64px;
+      padding: 18px 56px;
       font-size: 1rem;
       font-family: Arial, sans-serif;
       font-weight: bold;
@@ -111,12 +111,14 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn-red:hover { background: var(--red-mid); }
+    .btn-red:active { background: var(--red-mid); }
 
     /* ── QUESTION SCREEN ── */
     #question-screen {
-      padding: 0 calc(var(--sidebar-w) + 0px);
+      padding: 0 var(--sidebar-w);
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
@@ -128,41 +130,42 @@
       align-items: center;
       justify-content: center;
       flex: 1;
-      padding: 48px 48px 24px;
+      padding: 40px 32px 24px;
       gap: 0;
     }
 
     .q-number-circle {
-      width: 72px;
-      height: 72px;
+      width: 64px;
+      height: 64px;
       background: var(--red);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       font-family: Arial, sans-serif;
+      flex-shrink: 0;
     }
 
     .q-label {
       font-family: Arial, sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .q-text {
-      font-size: clamp(1.9rem, 4vw, 3.2rem);
+      font-size: clamp(1.5rem, 5vw, 3.2rem);
       color: var(--text-dark);
       text-align: center;
       font-weight: bold;
       line-height: 1.25;
-      max-width: 760px;
+      max-width: 720px;
     }
 
     .q-reveal-btn {
@@ -170,8 +173,8 @@
       background: var(--red);
       color: white;
       border: none;
-      padding: 24px 40px;
-      font-size: 0.95rem;
+      padding: 22px 32px;
+      font-size: 0.9rem;
       font-family: Arial, sans-serif;
       font-weight: bold;
       letter-spacing: 1px;
@@ -179,8 +182,10 @@
       text-align: center;
       transition: background 0.15s;
       flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-    .q-reveal-btn:hover { background: var(--red-mid); }
+    .q-reveal-btn:hover  { background: var(--red-mid); }
+    .q-reveal-btn:active { background: var(--red-mid); }
 
     /* ── REVEAL SCREEN ── */
     #reveal-screen {
@@ -188,43 +193,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 32px 20px 24px;
-    }
-
-    .reveal-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 460px;
+      padding: 28px 16px 24px;
+      overflow-y: auto;
+      gap: 16px;
     }
 
     .reveal-title {
       color: white;
-      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-size: clamp(1.2rem, 4vw, 1.9rem);
       font-weight: bold;
       text-align: center;
-      flex: 1;
+      flex-shrink: 0;
     }
-
-    .score-chip {
-      background: rgba(255,255,255,0.12);
-      border-radius: 4px;
-      padding: 6px 14px;
-      color: white;
-      font-family: Arial, sans-serif;
-      font-size: 0.8rem;
-      text-align: center;
-      white-space: nowrap;
-    }
-    .score-chip strong { font-size: 1.2rem; display: block; }
 
     /* Portrait video container */
     .video-frame-outer {
       background: var(--pink-frame);
-      padding: 10px;
+      padding: 8px;
       width: 100%;
-      max-width: 340px;
+      max-width: min(320px, calc((100vh - 180px) / 1.7778));
       flex-shrink: 0;
     }
 
@@ -243,55 +230,29 @@
       border: none;
     }
 
-    .vote-section {
+    .btn-next {
       width: 100%;
-      max-width: 340px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .vote-label {
-      color: var(--pink-bg);
-      font-style: italic;
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    .vote-btns {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .btn-vote {
-      flex: 1;
-      padding: 14px 10px;
-      border: none;
-      font-family: Arial, sans-serif;
-      font-size: 0.9rem;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: opacity 0.15s;
-    }
-    .btn-vote:hover { opacity: 0.85; }
-
-    .btn-vote.match {
+      max-width: 320px;
       background: white;
       color: var(--red);
+      border: none;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .btn-vote.no-match {
-      background: rgba(255,255,255,0.15);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
+    .btn-next:hover  { opacity: 0.88; }
+    .btn-next:active { opacity: 0.88; }
 
     /* ── FINAL SCREEN ── */
     #final-screen {
-      padding: 64px calc(var(--sidebar-w) + 32px);
+      padding: 56px calc(var(--sidebar-w) + 28px);
       justify-content: center;
       gap: 0;
       text-align: center;
@@ -300,7 +261,7 @@
     }
 
     .final-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 6vw, 3.5rem);
       color: var(--red);
       font-weight: bold;
       margin-bottom: 4px;
@@ -315,29 +276,29 @@
       margin-bottom: 32px;
     }
 
-    .final-score-wrap {
-      margin-bottom: 24px;
-    }
-
-    .final-score-num {
-      font-size: clamp(4rem, 10vw, 7rem);
-      color: var(--red);
-      font-weight: bold;
-      line-height: 1;
-    }
-
-    .final-score-denom {
-      font-size: 1.5rem;
-      color: var(--red-mid);
-    }
-
     .final-msg {
       font-size: 1.1rem;
       color: #555;
-      max-width: 480px;
-      line-height: 1.7;
+      max-width: 420px;
+      line-height: 1.75;
       margin-bottom: 44px;
       font-style: italic;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      :root { --sidebar-w: 18px; }
+
+      #start-screen  { padding: 48px calc(var(--sidebar-w) + 20px); }
+      #final-screen  { padding: 48px calc(var(--sidebar-w) + 20px); }
+
+      .q-body        { padding: 32px 20px 20px; }
+      .q-number-circle { width: 54px; height: 54px; font-size: 1.5rem; }
+
+      .rules-box     { padding: 20px 20px; }
+
+      .start-names   { margin-bottom: 28px; }
+      .rules-box     { margin-bottom: 24px; }
     }
   </style>
 </head>
@@ -353,7 +314,6 @@
         <li>Read the question aloud to Ellese</li>
         <li>She gives her answer to the group</li>
         <li>Click the button to reveal Jake's video</li>
-        <li>Vote — same answer or different planet?</li>
       </ol>
     </div>
     <button class="btn-red" onclick="startGame()">Let's Play</button>
@@ -373,13 +333,7 @@
 
   <!-- REVEAL -->
   <div id="reveal-screen" class="screen">
-    <div class="reveal-top">
-      <div class="reveal-title" id="reveal-title">Jake's Answer &mdash; Q1</div>
-      <div class="score-chip">
-        <strong id="score-display">0</strong>
-        pts
-      </div>
-    </div>
+    <div class="reveal-title" id="reveal-title">Jake's Answer &mdash; Q1</div>
 
     <div class="video-frame-outer">
       <div class="video-frame-inner">
@@ -388,24 +342,14 @@
       </div>
     </div>
 
-    <div class="vote-section">
-      <div class="vote-label">Same answer? Different planet? &mdash; Vote!</div>
-      <div class="vote-btns">
-        <button class="btn-vote match"    onclick="vote(true)">Same Answer</button>
-        <button class="btn-vote no-match" onclick="vote(false)">Different Planet</button>
-      </div>
-    </div>
+    <button class="btn-next" id="next-btn" onclick="next()">Next &rarr;</button>
   </div>
 
   <!-- FINAL -->
   <div id="final-screen" class="screen sidebar-layout">
-    <h1 class="final-title">Final Score</h1>
+    <h1 class="final-title">That's a Wrap!</h1>
     <p class="final-names">Jake &amp; Ellese</p>
-    <div class="final-score-wrap">
-      <span class="final-score-num" id="final-num">0</span>
-      <span class="final-score-denom"> / <span id="final-den">14</span></span>
-    </div>
-    <p class="final-msg" id="final-msg"></p>
+    <p class="final-msg">Thanks for playing — here's to Jake &amp; Ellese and a lifetime of answered questions.</p>
     <button class="btn-red" onclick="startGame()">Play Again</button>
   </div>
 
@@ -427,7 +371,7 @@
       { q: "What are you most excited for in married life?",                        id: "1U1qoo-ptHCi8r3IMAnztBXzcc3ANe8Xs" },
     ];
 
-    let idx = 0, score = 0;
+    let idx = 0;
 
     function show(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -435,7 +379,7 @@
     }
 
     function startGame() {
-      idx = 0; score = 0;
+      idx = 0;
       loadQuestion();
       show('question-screen');
     }
@@ -447,38 +391,22 @@
 
     function showReveal() {
       document.getElementById('reveal-title').textContent = `Jake's Answer — Q${idx + 1}`;
-      document.getElementById('score-display').textContent = score;
+      document.getElementById('next-btn').textContent =
+        idx === questions.length - 1 ? 'Finish' : 'Next →';
       document.getElementById('video-frame').src =
         `https://drive.google.com/file/d/${questions[idx].id}/preview`;
       show('reveal-screen');
     }
 
-    function vote(match) {
-      if (match) score++;
+    function next() {
       document.getElementById('video-frame').src = '';
       idx++;
       if (idx >= questions.length) {
-        showFinal();
+        show('final-screen');
       } else {
         loadQuestion();
         show('question-screen');
       }
-    }
-
-    function showFinal() {
-      const total = questions.length;
-      const pct = score / total;
-      document.getElementById('final-num').textContent = score;
-      document.getElementById('final-den').textContent = total;
-      const msgs = [
-        [1,    "Perfect score. Ellese knows her man inside and out. Jake is a lucky guy."],
-        [0.7,  "She really knows him. These two are the real deal."],
-        [0.4,  "Not bad — maybe a little more research before the wedding."],
-        [0,    "Good thing love doesn't come with a quiz. We're rooting for you both."],
-      ];
-      document.getElementById('final-msg').textContent =
-        msgs.find(([t]) => pct >= t)[1];
-      show('final-screen');
     }
   </script>
 </body>
