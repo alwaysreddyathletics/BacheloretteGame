@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jake & Ellese — He Said She Said 💍</title>
+  <style>
+    :root {
+      --pink: #e91e8c;
+      --pink-light: #fce4f3;
+      --pink-dark: #b5006e;
+      --gold: #d4af37;
+      --dark: #1a1a2e;
+      --card-bg: #fff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: var(--gold);
+      text-align: center;
+      margin: 30px 0 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .subtitle {
+      color: #ffcce8;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    /* SCORE BAR */
+    .scoreboard {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .score-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 18px 32px;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .score-card .label { font-size: 0.85rem; color: #ffcce8; text-transform: uppercase; letter-spacing: 1px; }
+    .score-card .value { font-size: 2.5rem; color: var(--gold); font-weight: bold; line-height: 1.1; }
+
+    /* PROGRESS */
+    .progress-bar-wrap {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 99px;
+      height: 8px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pink), var(--gold));
+      border-radius: 99px;
+      transition: width 0.5s ease;
+    }
+
+    /* QUESTION CARD */
+    .question-card {
+      background: var(--card-bg);
+      color: var(--dark);
+      border-radius: 24px;
+      padding: 36px 40px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      margin-bottom: 30px;
+    }
+
+    .q-number {
+      font-size: 0.85rem;
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .q-text {
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      color: var(--dark);
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    /* ELLESE'S ANSWER INPUT */
+    .answer-section label {
+      display: block;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .answer-section input[type="text"] {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      color: var(--dark);
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+    }
+
+    .answer-section input[type="text"]:focus {
+      outline: none;
+      border-color: var(--pink);
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 99px;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-reveal {
+      background: linear-gradient(135deg, var(--gold), #b8860b);
+      color: white;
+      width: 100%;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+      color: white;
+    }
+
+    .btn-wrong {
+      background: linear-gradient(135deg, #f44336, #b71c1c);
+      color: white;
+    }
+
+    /* REVEAL SECTION */
+    .reveal-section {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .reveal-section.visible { display: block; }
+
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      background: #000;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+      border-radius: 14px;
+    }
+
+    .result-badge {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+
+    .result-badge.correct {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .result-badge.wrong {
+      background: #fce4ec;
+      color: #b71c1c;
+    }
+
+    .jake-answer-reveal {
+      background: #fff3e0;
+      border-left: 4px solid var(--gold);
+      padding: 14px 18px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 16px;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .jake-answer-reveal strong { color: var(--dark); }
+
+    .nav-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* FINAL SCREEN */
+    .final-screen {
+      display: none;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .final-screen.visible { display: block; }
+
+    .final-emoji { font-size: 5rem; margin-bottom: 16px; }
+
+    .final-score-big {
+      font-size: 4rem;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    .final-msg {
+      font-size: 1.2rem;
+      color: #ffcce8;
+      margin: 16px 0 32px;
+      line-height: 1.6;
+    }
+
+    .btn-restart {
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: white;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+    }
+
+    /* WAITING STATE */
+    #game-screen { max-width: 700px; width: 100%; }
+    #start-screen { text-align: center; max-width: 600px; width: 100%; }
+    #start-screen.hidden, #game-screen.hidden, .final-screen.hidden { display: none !important; }
+
+    .rules-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .rules-card h3 { color: var(--gold); margin-bottom: 14px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+    .rules-card li { margin-bottom: 8px; color: #e0d0f0; line-height: 1.5; }
+    .rules-card ul { padding-left: 20px; }
+
+    .ring-icon { font-size: 3rem; margin-bottom: 16px; }
+
+    .no-video-note {
+      background: #fff8e1;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #795548;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- START SCREEN -->
+  <div id="start-screen">
+    <div class="ring-icon">💍</div>
+    <h1>He Said She Said</h1>
+    <p class="subtitle">Jake & Ellese — Bachelorette Edition</p>
+
+    <div class="rules-card">
+      <h3>How to Play</h3>
+      <ul>
+        <li>Ellese will be asked a question about Jake.</li>
+        <li>She tries to guess what Jake said his answer was.</li>
+        <li>Then we play Jake's video — let's see if she knows her man!</li>
+        <li>One point for every correct match.</li>
+        <li>The girls help judge if it counts 😜</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary" onclick="startGame()">Let's Play! 🎉</button>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game-screen" class="hidden">
+    <h1 style="margin-bottom:8px;">He Said She Said</h1>
+    <p class="subtitle" style="margin-bottom:20px;">Jake & Ellese</p>
+
+    <div class="scoreboard">
+      <div class="score-card">
+        <div class="label">Score</div>
+        <div class="value" id="score-display">0</div>
+      </div>
+      <div class="score-card">
+        <div class="label">Question</div>
+        <div class="value"><span id="q-current">1</span> / <span id="q-total">?</span></div>
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-number" id="q-number-label">Question 1</div>
+      <div class="q-text" id="q-text">Loading...</div>
+
+      <div class="answer-section" id="answer-input-section">
+        <label>Ellese's guess — what did Jake say?</label>
+        <input type="text" id="ellese-answer" placeholder="Type your answer here..." />
+        <button class="btn btn-primary" onclick="lockAnswer()">Lock it in! 🔒</button>
+      </div>
+
+      <div class="reveal-section" id="reveal-section">
+        <div class="result-badge" id="result-badge"></div>
+
+        <div class="jake-answer-reveal" id="jake-answer-reveal"></div>
+
+        <div id="video-container"></div>
+
+        <div class="nav-row">
+          <button class="btn btn-next" onclick="nextQuestion()" id="next-btn">Next Question →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL SCREEN -->
+  <div class="final-screen" id="final-screen">
+    <div class="final-emoji" id="final-emoji">🏆</div>
+    <h1 style="margin-bottom:12px;">Game Over!</h1>
+    <div class="final-score-big"><span id="final-score">0</span> / <span id="final-total">0</span></div>
+    <div class="final-msg" id="final-msg"></div>
+    <button class="btn btn-restart" onclick="restartGame()">Play Again 🔄</button>
+  </div>
+
+  <script>
+    // ─────────────────────────────────────────────
+    //  QUESTIONS — fill in videoUrl and jakeAnswer
+    // ─────────────────────────────────────────────
+    const questions = [
+      {
+        question: "QUESTION 1 — REPLACE ME",
+        jakeAnswer: "Jake's answer here",
+        videoUrl: "" // YouTube embed URL e.g. "https://www.youtube.com/embed/VIDEO_ID"
+      },
+      {
+        question: "QUESTION 2 — REPLACE ME",
+        jakeAnswer: "Jake's answer here",
+        videoUrl: ""
+      },
+      {
+        question: "QUESTION 3 — REPLACE ME",
+        jakeAnswer: "Jake's answer here",
+        videoUrl: ""
+      },
+      {
+        question: "QUESTION 4 — REPLACE ME",
+        jakeAnswer: "Jake's answer here",
+        videoUrl: ""
+      },
+      {
+        question: "QUESTION 5 — REPLACE ME",
+        jakeAnswer: "Jake's answer here",
+        videoUrl: ""
+      },
+    ];
+    // ─────────────────────────────────────────────
+
+    let currentIndex = 0;
+    let score = 0;
+    let lockedAnswer = "";
+
+    function startGame() {
+      document.getElementById("start-screen").classList.add("hidden");
+      document.getElementById("game-screen").classList.remove("hidden");
+      document.getElementById("q-total").textContent = questions.length;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentIndex];
+      document.getElementById("q-number-label").textContent = `Question ${currentIndex + 1}`;
+      document.getElementById("q-current").textContent = currentIndex + 1;
+      document.getElementById("q-text").textContent = q.question;
+      document.getElementById("ellese-answer").value = "";
+      document.getElementById("score-display").textContent = score;
+
+      const pct = (currentIndex / questions.length) * 100;
+      document.getElementById("progress-fill").style.width = pct + "%";
+
+      document.getElementById("answer-input-section").style.display = "block";
+      document.getElementById("reveal-section").classList.remove("visible");
+      document.getElementById("video-container").innerHTML = "";
+
+      document.getElementById("next-btn").textContent =
+        currentIndex === questions.length - 1 ? "See Final Score 🏆" : "Next Question →";
+    }
+
+    function lockAnswer() {
+      const input = document.getElementById("ellese-answer");
+      lockedAnswer = input.value.trim();
+      if (!lockedAnswer) { input.focus(); return; }
+
+      document.getElementById("answer-input-section").style.display = "none";
+      showReveal();
+    }
+
+    function showReveal() {
+      const q = questions[currentIndex];
+      const revealSection = document.getElementById("reveal-section");
+      const badge = document.getElementById("result-badge");
+      const jakeDiv = document.getElementById("jake-answer-reveal");
+      const videoContainer = document.getElementById("video-container");
+
+      // Show Jake's written answer
+      jakeDiv.innerHTML = `<strong>Jake said:</strong> "${q.jakeAnswer}"`;
+
+      // Build video embed if URL provided
+      if (q.videoUrl) {
+        videoContainer.innerHTML = `
+          <div class="video-wrap">
+            <iframe src="${q.videoUrl}?autoplay=1&rel=0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>`;
+      } else {
+        videoContainer.innerHTML = `<div class="no-video-note">📹 Video coming soon — check Jake's answer above!</div>`;
+      }
+
+      // Score judgement (rough match)
+      const normalise = s => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const matched = normalise(lockedAnswer).includes(normalise(q.jakeAnswer)) ||
+                      normalise(q.jakeAnswer).includes(normalise(lockedAnswer));
+
+      if (matched) {
+        score++;
+        badge.className = "result-badge correct";
+        badge.textContent = "✅ Match! She knows her man!";
+      } else {
+        badge.className = "result-badge wrong";
+        badge.textContent = `❌ Nice try! She said "${lockedAnswer}"`;
+      }
+
+      document.getElementById("score-display").textContent = score;
+      revealSection.classList.add("visible");
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex >= questions.length) {
+        showFinal();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showFinal() {
+      document.getElementById("game-screen").classList.add("hidden");
+      const finalScreen = document.getElementById("final-screen");
+      finalScreen.classList.add("visible");
+
+      const total = questions.length;
+      const pct = score / total;
+      document.getElementById("final-score").textContent = score;
+      document.getElementById("final-total").textContent = total;
+
+      let emoji = "💍";
+      let msg = "";
+      if (pct === 1) {
+        emoji = "🏆💍🥂";
+        msg = "PERFECT SCORE! Ellese knows Jake better than he knows himself. These two are meant to be! 🎉";
+      } else if (pct >= 0.7) {
+        emoji = "💕";
+        msg = "Great score! Ellese definitely knows her man. Jake is a lucky guy! 🥂";
+      } else if (pct >= 0.4) {
+        emoji = "😂";
+        msg = "Not bad — but maybe spend a little more time talking before the wedding? 😜 Just kidding, we love you both!";
+      } else {
+        emoji = "😅";
+        msg = "Uh oh... good thing love doesn't come with a quiz! We're rooting for you two! 💕";
+      }
+
+      document.getElementById("final-emoji").textContent = emoji;
+      document.getElementById("final-msg").textContent = msg;
+    }
+
+    function restartGame() {
+      currentIndex = 0;
+      score = 0;
+      lockedAnswer = "";
+      document.getElementById("final-screen").classList.remove("visible");
+      document.getElementById("game-screen").classList.remove("hidden");
+      showQuestion();
+    }
+  </script>
+</body>
+</html>
