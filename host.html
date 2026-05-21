@@ -21,6 +21,7 @@
 
     .sidebar-layout {
       position: relative; background: var(--pink-bg); justify-content: space-between;
+      overflow: hidden;
     }
     .sidebar-layout::before, .sidebar-layout::after {
       content: ''; position: fixed; top: 0; width: var(--sidebar-w); height: 100vh;
@@ -28,6 +29,14 @@
     }
     .sidebar-layout::before { left: 0; }
     .sidebar-layout::after  { right: 0; }
+
+    /* SVG DECORATIONS */
+    .svg-deco {
+      position: absolute;
+      pointer-events: none;
+      fill: black;
+      opacity: 0.07;
+    }
 
     /* LOBBY */
     #h-lobby { padding: 48px calc(var(--sidebar-w) + 28px); justify-content: center; gap: 24px; text-align: center; }
@@ -40,11 +49,6 @@
     .join-box h3 {
       color: var(--red); font-family: Arial, sans-serif; font-size: 0.72rem;
       text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px;
-    }
-    .join-url {
-      font-family: monospace; font-size: 0.88rem; color: var(--text-dark);
-      background: #f9f0f1; padding: 10px 14px; border-radius: 4px;
-      margin-bottom: 16px; word-break: break-all;
     }
     #qr-code { display: flex; justify-content: center; }
 
@@ -179,25 +183,6 @@
     .final-names { font-family: Arial, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red-mid); margin-bottom: 36px; }
     .final-msg   { font-size: 1.1rem; color: #555; max-width: 420px; line-height: 1.75; margin-bottom: 44px; font-style: italic; }
 
-    /* ── DECORATIONS ── */
-    .deco-strip {
-      display: flex; gap: 10px; justify-content: center; align-items: center;
-      font-size: 1.5rem; opacity: 0.55; flex-shrink: 0; width: 100%;
-    }
-    .deco-strip.lg  { font-size: 1.9rem; gap: 14px; opacity: 0.6; }
-    .deco-strip.sm  { font-size: 1rem;   gap: 8px;  opacity: 0.38; }
-    .deco-city {
-      font-family: Arial, sans-serif; font-size: 0.6rem; letter-spacing: 7px;
-      text-transform: uppercase; color: var(--red); opacity: 0.4; text-align: center;
-    }
-    .deco-divider {
-      display: flex; align-items: center; gap: 10px; width: 100%; max-width: 280px; margin: 0 auto;
-    }
-    .deco-divider::before, .deco-divider::after {
-      content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.2;
-    }
-    .deco-divider span { font-size: 1rem; opacity: 0.4; }
-
     @media (max-width: 480px) {
       :root { --sidebar-w: 18px; }
       #h-lobby, #h-final { padding: 40px calc(var(--sidebar-w) + 16px); }
@@ -209,9 +194,25 @@
 
   <!-- LOBBY -->
   <div id="h-lobby" class="screen active sidebar-layout">
-    <div class="deco-strip lg">🤠&nbsp;💍&nbsp;🎸&nbsp;🥂&nbsp;👑</div>
-    <div class="deco-city">Nashville Bachelorette</div>
-    <h1 class="lobby-title" style="margin-top:4px;">He Said She Said</h1>
+    <!-- cowboy hat — top left -->
+    <svg class="svg-deco" style="top:24px;left:40px;width:88px;transform:rotate(-12deg)" viewBox="0 0 100 70" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8,50 Q8,42 28,40 L33,18 Q38,4 50,4 Q62,4 67,18 L72,40 Q92,42 92,50 Q92,58 72,62 Q62,66 50,66 Q38,66 28,62 Q8,58 8,50Z"/>
+    </svg>
+    <!-- guitar — top right -->
+    <svg class="svg-deco" style="top:14px;right:40px;width:38px;transform:rotate(10deg)" viewBox="0 0 50 120" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20,0 L30,0 L30,5 L28,5 L28,56 Q40,60 44,73 Q48,86 43,97 Q37,112 25,114 Q13,112 7,97 Q2,86 6,73 Q10,60 22,56 L22,5 L20,5 Z"/>
+      <circle cx="25" cy="88" r="8" fill-opacity="0.3"/>
+    </svg>
+    <!-- boot — bottom left -->
+    <svg class="svg-deco" style="bottom:22px;left:40px;width:64px;transform:rotate(-8deg)" viewBox="0 0 76 96" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18,5 L28,5 L28,58 Q36,65 50,68 Q62,70 65,70 L65,80 L8,80 Q8,70 16,66 L16,5 Z"/>
+      <rect x="4" y="80" width="67" height="10" rx="5"/>
+    </svg>
+    <!-- champagne flute — bottom right -->
+    <svg class="svg-deco" style="bottom:22px;right:44px;width:30px" viewBox="0 0 40 100" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16,4 L24,4 L32,58 L23,62 L23,78 L29,78 L29,88 L11,88 L11,78 L17,78 L17,62 L8,58 Z"/>
+    </svg>
+    <h1 class="lobby-title">He Said She Said</h1>
     <p class="lobby-sub">Jake &amp; Ellese — Host View</p>
     <div class="join-box">
       <h3>Guests scan to join</h3>
@@ -219,17 +220,19 @@
     </div>
     <button class="btn-red" onclick="hostStart()">Start Game</button>
     <button onclick="hostReset()" style="background:none;border:none;color:var(--red-mid);font-family:Arial,sans-serif;font-size:0.8rem;text-decoration:underline;cursor:pointer;margin-top:-8px;">Reset / Clear old game state</button>
-    <div class="deco-strip sm">🌸&nbsp;💐&nbsp;🌸&nbsp;💐&nbsp;🌸</div>
   </div>
 
   <!-- QUESTION -->
   <div id="h-question" class="screen sidebar-layout">
+    <!-- music note — top right -->
+    <svg class="svg-deco" style="top:22px;right:44px;width:38px;transform:rotate(8deg);opacity:0.06" viewBox="0 0 50 80" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12,72 Q5,67 5,60 Q5,50 13,47 Q18,45 23,49 L23,18 L44,10 L44,26 L23,34 L23,51 Q27,54 27,62 Q27,72 19,75 Q15,77 12,72Z"/>
+    </svg>
     <div class="top-nav">
       <button class="btn-back dark" onclick="hostBackFromQuestion()">&#8592; Back</button>
       <button class="btn-home dark" onclick="goLobby()">&#8962; QR Code</button>
     </div>
     <div class="h-q-body">
-      <div class="deco-strip sm">💍&nbsp;✨&nbsp;💍&nbsp;✨&nbsp;💍</div>
       <div class="h-q-circle" id="h-q-num">1</div>
       <div class="h-q-label">Question</div>
       <div class="h-q-text" id="h-q-text"></div>
@@ -276,14 +279,27 @@
 
   <!-- FINAL -->
   <div id="h-final" class="screen sidebar-layout">
-    <div class="deco-strip lg">🤠&nbsp;💍&nbsp;🥂&nbsp;🎸&nbsp;👑</div>
-    <div class="deco-city">Nashville Bachelorette</div>
+    <!-- cowboy hat — top left -->
+    <svg class="svg-deco" style="top:24px;left:40px;width:88px;transform:rotate(-10deg)" viewBox="0 0 100 70" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8,50 Q8,42 28,40 L33,18 Q38,4 50,4 Q62,4 67,18 L72,40 Q92,42 92,50 Q92,58 72,62 Q62,66 50,66 Q38,66 28,62 Q8,58 8,50Z"/>
+    </svg>
+    <!-- guitar — top right -->
+    <svg class="svg-deco" style="top:14px;right:40px;width:38px;transform:rotate(12deg)" viewBox="0 0 50 120" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20,0 L30,0 L30,5 L28,5 L28,56 Q40,60 44,73 Q48,86 43,97 Q37,112 25,114 Q13,112 7,97 Q2,86 6,73 Q10,60 22,56 L22,5 L20,5 Z"/>
+      <circle cx="25" cy="88" r="8" fill-opacity="0.3"/>
+    </svg>
+    <!-- music note — bottom left -->
+    <svg class="svg-deco" style="bottom:22px;left:40px;width:44px;transform:rotate(-6deg)" viewBox="0 0 50 80" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12,72 Q5,67 5,60 Q5,50 13,47 Q18,45 23,49 L23,18 L44,10 L44,26 L23,34 L23,51 Q27,54 27,62 Q27,72 19,75 Q15,77 12,72Z"/>
+    </svg>
+    <!-- champagne flute — bottom right -->
+    <svg class="svg-deco" style="bottom:22px;right:44px;width:30px" viewBox="0 0 40 100" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16,4 L24,4 L32,58 L23,62 L23,78 L29,78 L29,88 L11,88 L11,78 L17,78 L17,62 L8,58 Z"/>
+    </svg>
     <h1 class="final-title" style="margin-top:8px;">That's a Wrap!</h1>
     <p class="final-names">Jake &amp; Ellese</p>
-    <div class="deco-divider" style="margin:0 auto 24px;"><span>💍</span></div>
     <p class="final-msg">Thanks for playing — here's to Jake &amp; Ellese and a lifetime of answered questions.</p>
     <button class="btn-red" onclick="hostReset()">Play Again</button>
-    <div class="deco-strip sm">🌸&nbsp;💐&nbsp;🎊&nbsp;💐&nbsp;🌸</div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -413,7 +429,7 @@
     db.ref('game').on('value', snap => {
       const g = snap.val();
       if (!g || g.state === 'waiting' || !g.state) { gameStarted = false; return; }
-      if (!gameStarted) return; // don't auto-jump; host must click Start Game
+      if (!gameStarted) return;
 
       const { state, qIndex, votes } = g;
       currentQIndex = qIndex || 0;
