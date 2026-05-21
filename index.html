@@ -117,20 +117,45 @@
     /* DONE */
     .done-title { font-size: clamp(2rem, 7vw, 3rem); color: var(--red); font-weight: bold; margin-bottom: 8px; }
     .done-msg   { color: #777; font-style: italic; line-height: 1.7; }
+
+    /* ── DECORATIONS ── */
+    .deco-strip {
+      display: flex; gap: 10px; justify-content: center; align-items: center;
+      font-size: 1.5rem; opacity: 0.55; flex-shrink: 0; width: 100%;
+    }
+    .deco-strip.lg  { font-size: 1.9rem; gap: 14px; opacity: 0.6; }
+    .deco-strip.sm  { font-size: 1rem;   gap: 8px;  opacity: 0.38; }
+    .deco-city {
+      font-family: Arial, sans-serif; font-size: 0.6rem; letter-spacing: 7px;
+      text-transform: uppercase; color: var(--red); opacity: 0.4; text-align: center;
+    }
+    .deco-city.lt { color: rgba(255,255,255,0.45); }
+    .deco-divider {
+      display: flex; align-items: center; gap: 10px; width: 100%; max-width: 280px; margin: 0 auto;
+    }
+    .deco-divider::before, .deco-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.2;
+    }
+    .deco-divider span { font-size: 1rem; opacity: 0.4; }
   </style>
 </head>
 <body>
 
   <!-- WAITING -->
   <div id="s-wait" class="screen active">
-    <h1 class="wait-title">He Said She Said</h1>
+    <div class="deco-strip lg">🤠&nbsp;💍&nbsp;🎸&nbsp;🥂&nbsp;👑</div>
+    <div class="deco-city">Nashville Bachelorette</div>
+    <h1 class="wait-title" style="margin-top:20px;">He Said She Said</h1>
     <p class="wait-sub">Jake &amp; Ellese</p>
-    <p class="wait-msg"><span class="pulse"></span>Waiting for the host to start…</p>
+    <div class="deco-divider"><span>✨</span></div>
+    <p class="wait-msg" style="margin-top:12px;"><span class="pulse"></span>Waiting for the host to start…</p>
+    <div class="deco-strip sm" style="margin-top:32px;">🌸&nbsp;💐&nbsp;🌸&nbsp;💐&nbsp;🌸</div>
   </div>
 
   <!-- VOTING -->
   <div id="s-vote" class="screen">
-    <div class="q-label" id="g-q-num">Question 1</div>
+    <div class="deco-strip sm">💍&nbsp;✨&nbsp;💍&nbsp;✨&nbsp;💍</div>
+    <div class="q-label" style="margin-top:14px;" id="g-q-num">Question 1</div>
     <div class="q-text-guest" id="g-q-text"></div>
     <div id="vote-input">
       <div class="vote-prompt">Will Ellese's answer match Jake's?</div>
@@ -150,7 +175,8 @@
 
   <!-- WATCHING JAKE (no verdict yet) -->
   <div id="s-reveal" class="screen">
-    <div class="q-label" id="g-reveal-num">Question 1</div>
+    <div class="deco-strip sm">🎸&nbsp;🎵&nbsp;🎸&nbsp;🎵&nbsp;🎸</div>
+    <div class="q-label" style="margin-top:14px;" id="g-reveal-num">Question 1</div>
     <div class="reveal-headline">Jake's answering now!</div>
     <div class="reveal-sub">Watch the host screen</div>
     <div class="tally-wrap" id="tally-reveal" style="margin:0 auto;"></div>
@@ -160,14 +186,17 @@
   <div id="s-verdict" class="screen">
     <div class="q-label" id="g-verdict-num">Question 1</div>
     <div id="verdict-win-block" style="display:none;">
+      <div class="deco-strip" style="margin-bottom:12px;">✨&nbsp;👑&nbsp;✨&nbsp;🌟&nbsp;✨</div>
       <div class="verdict-win">You're Right!</div>
       <div class="verdict-sub">Great minds think alike</div>
     </div>
     <div id="verdict-lose-block" style="display:none;">
       <div class="verdict-lose">Drink Bitch!</div>
       <div class="verdict-sub">Wrong answer — bottoms up</div>
+      <div class="deco-strip" style="margin-top:12px;">🥂&nbsp;🍾&nbsp;🥂&nbsp;🍾&nbsp;🥂</div>
     </div>
     <div id="verdict-novote-block" style="display:none;">
+      <div class="deco-strip sm" style="margin-bottom:10px;">🤠&nbsp;🎸&nbsp;🤠</div>
       <div class="verdict-lose" style="font-size:clamp(1.6rem,6vw,2.4rem);">Watch &amp; Learn</div>
       <div class="verdict-sub">Next time vote faster!</div>
     </div>
@@ -176,8 +205,12 @@
 
   <!-- DONE -->
   <div id="s-done" class="screen">
+    <div class="deco-strip lg">🤠&nbsp;💍&nbsp;🥂&nbsp;🎸&nbsp;👑</div>
+    <div class="deco-city" style="margin-bottom:16px;">Nashville Bachelorette</div>
     <h1 class="done-title">That's a Wrap!</h1>
+    <div class="deco-divider" style="margin:16px auto;"><span>💍</span></div>
     <p class="done-msg">Thanks for playing —<br>here's to Jake &amp; Ellese!</p>
+    <div class="deco-strip sm" style="margin-top:32px;">🌸&nbsp;💐&nbsp;🎊&nbsp;💐&nbsp;🌸</div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>

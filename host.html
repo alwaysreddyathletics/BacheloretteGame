@@ -179,6 +179,25 @@
     .final-names { font-family: Arial, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red-mid); margin-bottom: 36px; }
     .final-msg   { font-size: 1.1rem; color: #555; max-width: 420px; line-height: 1.75; margin-bottom: 44px; font-style: italic; }
 
+    /* ── DECORATIONS ── */
+    .deco-strip {
+      display: flex; gap: 10px; justify-content: center; align-items: center;
+      font-size: 1.5rem; opacity: 0.55; flex-shrink: 0; width: 100%;
+    }
+    .deco-strip.lg  { font-size: 1.9rem; gap: 14px; opacity: 0.6; }
+    .deco-strip.sm  { font-size: 1rem;   gap: 8px;  opacity: 0.38; }
+    .deco-city {
+      font-family: Arial, sans-serif; font-size: 0.6rem; letter-spacing: 7px;
+      text-transform: uppercase; color: var(--red); opacity: 0.4; text-align: center;
+    }
+    .deco-divider {
+      display: flex; align-items: center; gap: 10px; width: 100%; max-width: 280px; margin: 0 auto;
+    }
+    .deco-divider::before, .deco-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.2;
+    }
+    .deco-divider span { font-size: 1rem; opacity: 0.4; }
+
     @media (max-width: 480px) {
       :root { --sidebar-w: 18px; }
       #h-lobby, #h-final { padding: 40px calc(var(--sidebar-w) + 16px); }
@@ -190,7 +209,9 @@
 
   <!-- LOBBY -->
   <div id="h-lobby" class="screen active sidebar-layout">
-    <h1 class="lobby-title">He Said She Said</h1>
+    <div class="deco-strip lg">🤠&nbsp;💍&nbsp;🎸&nbsp;🥂&nbsp;👑</div>
+    <div class="deco-city">Nashville Bachelorette</div>
+    <h1 class="lobby-title" style="margin-top:4px;">He Said She Said</h1>
     <p class="lobby-sub">Jake &amp; Ellese — Host View</p>
     <div class="join-box">
       <h3>Guests scan to join</h3>
@@ -198,6 +219,7 @@
     </div>
     <button class="btn-red" onclick="hostStart()">Start Game</button>
     <button onclick="hostReset()" style="background:none;border:none;color:var(--red-mid);font-family:Arial,sans-serif;font-size:0.8rem;text-decoration:underline;cursor:pointer;margin-top:-8px;">Reset / Clear old game state</button>
+    <div class="deco-strip sm">🌸&nbsp;💐&nbsp;🌸&nbsp;💐&nbsp;🌸</div>
   </div>
 
   <!-- QUESTION -->
@@ -207,6 +229,7 @@
       <button class="btn-home dark" onclick="goLobby()">&#8962; QR Code</button>
     </div>
     <div class="h-q-body">
+      <div class="deco-strip sm">💍&nbsp;✨&nbsp;💍&nbsp;✨&nbsp;💍</div>
       <div class="h-q-circle" id="h-q-num">1</div>
       <div class="h-q-label">Question</div>
       <div class="h-q-text" id="h-q-text"></div>
@@ -253,10 +276,14 @@
 
   <!-- FINAL -->
   <div id="h-final" class="screen sidebar-layout">
-    <h1 class="final-title">That's a Wrap!</h1>
+    <div class="deco-strip lg">🤠&nbsp;💍&nbsp;🥂&nbsp;🎸&nbsp;👑</div>
+    <div class="deco-city">Nashville Bachelorette</div>
+    <h1 class="final-title" style="margin-top:8px;">That's a Wrap!</h1>
     <p class="final-names">Jake &amp; Ellese</p>
+    <div class="deco-divider" style="margin:0 auto 24px;"><span>💍</span></div>
     <p class="final-msg">Thanks for playing — here's to Jake &amp; Ellese and a lifetime of answered questions.</p>
     <button class="btn-red" onclick="hostReset()">Play Again</button>
+    <div class="deco-strip sm">🌸&nbsp;💐&nbsp;🎊&nbsp;💐&nbsp;🌸</div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
