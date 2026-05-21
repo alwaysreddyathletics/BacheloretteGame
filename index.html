@@ -49,7 +49,7 @@
       position: absolute;
       pointer-events: none;
       fill: black;
-      opacity: 0.07;
+      opacity: 0.12;
     }
 
     /* WAITING */
@@ -131,25 +131,55 @@
 </head>
 <body>
 
+  <!-- ═══ SHARED SVG SYMBOL DEFINITIONS ═══ -->
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- COWBOY HAT: wide brim + dome crown -->
+      <symbol id="ico-hat" viewBox="0 0 120 80">
+        <ellipse cx="60" cy="66" rx="57" ry="14"/>
+        <path d="M20,66 Q18,44 26,28 Q36,8 60,8 Q84,8 94,28 Q102,44 100,66 Z"/>
+      </symbol>
+      <!-- GUITAR: headstock + neck + hourglass body -->
+      <symbol id="ico-guitar" viewBox="0 0 70 195">
+        <rect x="24" y="0" width="22" height="22" rx="7"/>
+        <rect x="30" y="20" width="10" height="68"/>
+        <path d="M35,90 Q10,90 10,110 Q10,124 20,132 Q10,140 10,156 Q10,184 35,186 Q60,184 60,156 Q60,140 50,132 Q60,124 60,110 Q60,90 35,90 Z"/>
+      </symbol>
+      <!-- CHAMPAGNE FLUTE: wide rim, narrow base, stem, foot -->
+      <symbol id="ico-flute" viewBox="0 0 40 115">
+        <path d="M12,66 L28,66 Q32,5 8,5 Z"/>
+        <rect x="18" y="66" width="4" height="34"/>
+        <ellipse cx="20" cy="102" rx="17" ry="6"/>
+      </symbol>
+      <!-- MUSIC NOTE: oval head + stem + flag -->
+      <symbol id="ico-note" viewBox="0 0 70 95">
+        <ellipse cx="22" cy="76" rx="20" ry="14" transform="rotate(-22,22,76)"/>
+        <rect x="38" y="8" width="7" height="70"/>
+        <path d="M45,8 Q72,20 70,46 Q52,33 45,29 Z"/>
+      </symbol>
+      <!-- COWBOY BOOT: shaft + toe + heel -->
+      <symbol id="ico-boot" viewBox="0 0 100 100">
+        <path d="M24,0 L40,0 L40,60 Q54,64 68,67 Q84,70 88,70 L88,82 L8,82 Q8,70 22,65 Z"/>
+        <path d="M4,82 L92,82 L92,94 Q92,100 48,100 Q4,100 4,94 Z"/>
+      </symbol>
+      <!-- DIAMOND GEM -->
+      <symbol id="ico-diamond" viewBox="0 0 90 78">
+        <path d="M45,74 L5,30 L20,6 L70,6 L85,30 Z"/>
+        <path d="M5,30 L25,30 L45,56 L65,30 L85,30" fill="none" stroke="black" stroke-width="3"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <!-- WAITING -->
   <div id="s-wait" class="screen active">
-    <!-- cowboy hat — top left -->
-    <svg class="svg-deco" style="top:24px;left:20px;width:82px;transform:rotate(-12deg)" viewBox="0 0 100 70" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8,50 Q8,42 28,40 L33,18 Q38,4 50,4 Q62,4 67,18 L72,40 Q92,42 92,50 Q92,58 72,62 Q62,66 50,66 Q38,66 28,62 Q8,58 8,50Z"/>
-    </svg>
-    <!-- guitar — top right -->
-    <svg class="svg-deco" style="top:14px;right:20px;width:34px;transform:rotate(10deg)" viewBox="0 0 50 120" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20,0 L30,0 L30,5 L28,5 L28,56 Q40,60 44,73 Q48,86 43,97 Q37,112 25,114 Q13,112 7,97 Q2,86 6,73 Q10,60 22,56 L22,5 L20,5 Z"/>
-      <circle cx="25" cy="88" r="8" fill-opacity="0.3"/>
-    </svg>
-    <!-- champagne flute — bottom right -->
-    <svg class="svg-deco" style="bottom:22px;right:26px;width:28px" viewBox="0 0 40 100" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16,4 L24,4 L32,58 L23,62 L23,78 L29,78 L29,88 L11,88 L11,78 L17,78 L17,62 L8,58 Z"/>
-    </svg>
-    <!-- music note — bottom left -->
-    <svg class="svg-deco" style="bottom:22px;left:20px;width:42px;transform:rotate(-5deg)" viewBox="0 0 50 80" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12,72 Q5,67 5,60 Q5,50 13,47 Q18,45 23,49 L23,18 L44,10 L44,26 L23,34 L23,51 Q27,54 27,62 Q27,72 19,75 Q15,77 12,72Z"/>
-    </svg>
+    <!-- hat — upper left, large -->
+    <svg class="svg-deco" style="top:30px;left:18px;width:140px;transform:rotate(-14deg)" fill="black"><use href="#ico-hat"/></svg>
+    <!-- guitar — right side, tall -->
+    <svg class="svg-deco" style="top:20px;right:18px;width:60px;transform:rotate(12deg)" fill="black"><use href="#ico-guitar"/></svg>
+    <!-- music note — lower left -->
+    <svg class="svg-deco" style="bottom:30px;left:20px;width:80px;transform:rotate(-10deg)" fill="black"><use href="#ico-note"/></svg>
+    <!-- flute — lower right -->
+    <svg class="svg-deco" style="bottom:24px;right:24px;width:44px;transform:rotate(8deg)" fill="black"><use href="#ico-flute"/></svg>
     <h1 class="wait-title">He Said She Said</h1>
     <p class="wait-sub">Jake &amp; Ellese</p>
     <p class="wait-msg" style="margin-top:20px;"><span class="pulse"></span>Waiting for the host to start…</p>
@@ -157,14 +187,12 @@
 
   <!-- VOTING -->
   <div id="s-vote" class="screen">
-    <!-- diamond — top left -->
-    <svg class="svg-deco" style="top:22px;left:20px;width:50px;transform:rotate(-10deg);opacity:0.06" viewBox="0 0 80 72" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M40,68 L5,30 L18,8 L62,8 L75,30 Z"/>
-    </svg>
-    <!-- music note — bottom right -->
-    <svg class="svg-deco" style="bottom:22px;right:20px;width:36px;transform:rotate(8deg);opacity:0.06" viewBox="0 0 50 80" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12,72 Q5,67 5,60 Q5,50 13,47 Q18,45 23,49 L23,18 L44,10 L44,26 L23,34 L23,51 Q27,54 27,62 Q27,72 19,75 Q15,77 12,72Z"/>
-    </svg>
+    <!-- diamond — upper left -->
+    <svg class="svg-deco" style="top:24px;left:18px;width:90px;transform:rotate(-12deg);opacity:0.10" fill="black"><use href="#ico-diamond"/></svg>
+    <!-- boot — lower right -->
+    <svg class="svg-deco" style="bottom:24px;right:18px;width:95px;transform:rotate(8deg);opacity:0.10" fill="black"><use href="#ico-boot"/></svg>
+    <!-- small hat — lower left -->
+    <svg class="svg-deco" style="bottom:28px;left:16px;width:80px;transform:rotate(-8deg);opacity:0.08" fill="black"><use href="#ico-hat"/></svg>
     <div class="q-label" id="g-q-num">Question 1</div>
     <div class="q-text-guest" id="g-q-text"></div>
     <div id="vote-input">
@@ -185,15 +213,10 @@
 
   <!-- WATCHING JAKE (no verdict yet) -->
   <div id="s-reveal" class="screen">
-    <!-- guitar — top left -->
-    <svg class="svg-deco" style="top:22px;left:20px;width:30px;transform:rotate(-8deg);opacity:0.06" viewBox="0 0 50 120" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20,0 L30,0 L30,5 L28,5 L28,56 Q40,60 44,73 Q48,86 43,97 Q37,112 25,114 Q13,112 7,97 Q2,86 6,73 Q10,60 22,56 L22,5 L20,5 Z"/>
-    </svg>
-    <!-- boot — bottom right -->
-    <svg class="svg-deco" style="bottom:22px;right:20px;width:56px;transform:rotate(5deg);opacity:0.06" viewBox="0 0 76 96" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18,5 L28,5 L28,58 Q36,65 50,68 Q62,70 65,70 L65,80 L8,80 Q8,70 16,66 L16,5 Z"/>
-      <rect x="4" y="80" width="67" height="10" rx="5"/>
-    </svg>
+    <!-- guitar — left side -->
+    <svg class="svg-deco" style="left:18px;top:50%;transform:translateY(-55%) rotate(-8deg);width:55px;opacity:0.10" fill="black"><use href="#ico-guitar"/></svg>
+    <!-- hat — lower right -->
+    <svg class="svg-deco" style="bottom:24px;right:18px;width:120px;transform:rotate(10deg);opacity:0.10" fill="black"><use href="#ico-hat"/></svg>
     <div class="q-label" id="g-reveal-num">Question 1</div>
     <div class="reveal-headline">Jake's answering now!</div>
     <div class="reveal-sub">Watch the host screen</div>
@@ -202,14 +225,12 @@
 
   <!-- VERDICT RESULT -->
   <div id="s-verdict" class="screen">
-    <!-- champagne flute — top right -->
-    <svg class="svg-deco" style="top:22px;right:26px;width:24px;opacity:0.06" viewBox="0 0 40 100" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16,4 L24,4 L32,58 L23,62 L23,78 L29,78 L29,88 L11,88 L11,78 L17,78 L17,62 L8,58 Z"/>
-    </svg>
-    <!-- cowboy hat — bottom left -->
-    <svg class="svg-deco" style="bottom:22px;left:20px;width:68px;transform:rotate(8deg);opacity:0.06" viewBox="0 0 100 70" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8,50 Q8,42 28,40 L33,18 Q38,4 50,4 Q62,4 67,18 L72,40 Q92,42 92,50 Q92,58 72,62 Q62,66 50,66 Q38,66 28,62 Q8,58 8,50Z"/>
-    </svg>
+    <!-- flute — upper right, large -->
+    <svg class="svg-deco" style="top:20px;right:20px;width:60px;transform:rotate(6deg);opacity:0.11" fill="black"><use href="#ico-flute"/></svg>
+    <!-- boot — lower left -->
+    <svg class="svg-deco" style="bottom:24px;left:18px;width:95px;transform:rotate(-10deg);opacity:0.11" fill="black"><use href="#ico-boot"/></svg>
+    <!-- hat — upper left -->
+    <svg class="svg-deco" style="top:28px;left:18px;width:110px;transform:rotate(-12deg);opacity:0.09" fill="black"><use href="#ico-hat"/></svg>
     <div class="q-label" id="g-verdict-num">Question 1</div>
     <div id="verdict-win-block" style="display:none;">
       <div class="verdict-win">You're Right!</div>
@@ -228,24 +249,16 @@
 
   <!-- DONE -->
   <div id="s-done" class="screen">
-    <!-- cowboy hat — top left -->
-    <svg class="svg-deco" style="top:24px;left:20px;width:78px;transform:rotate(-10deg)" viewBox="0 0 100 70" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8,50 Q8,42 28,40 L33,18 Q38,4 50,4 Q62,4 67,18 L72,40 Q92,42 92,50 Q92,58 72,62 Q62,66 50,66 Q38,66 28,62 Q8,58 8,50Z"/>
-    </svg>
-    <!-- guitar — top right -->
-    <svg class="svg-deco" style="top:14px;right:20px;width:34px;transform:rotate(12deg)" viewBox="0 0 50 120" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20,0 L30,0 L30,5 L28,5 L28,56 Q40,60 44,73 Q48,86 43,97 Q37,112 25,114 Q13,112 7,97 Q2,86 6,73 Q10,60 22,56 L22,5 L20,5 Z"/>
-      <circle cx="25" cy="88" r="8" fill-opacity="0.3"/>
-    </svg>
-    <!-- boot — bottom left -->
-    <svg class="svg-deco" style="bottom:22px;left:20px;width:60px;transform:rotate(-8deg)" viewBox="0 0 76 96" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18,5 L28,5 L28,58 Q36,65 50,68 Q62,70 65,70 L65,80 L8,80 Q8,70 16,66 L16,5 Z"/>
-      <rect x="4" y="80" width="67" height="10" rx="5"/>
-    </svg>
-    <!-- champagne flute — bottom right -->
-    <svg class="svg-deco" style="bottom:22px;right:26px;width:28px" viewBox="0 0 40 100" fill="black" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16,4 L24,4 L32,58 L23,62 L23,78 L29,78 L29,88 L11,88 L11,78 L17,78 L17,62 L8,58 Z"/>
-    </svg>
+    <!-- hat — upper left -->
+    <svg class="svg-deco" style="top:28px;left:18px;width:140px;transform:rotate(-12deg)" fill="black"><use href="#ico-hat"/></svg>
+    <!-- guitar — upper right -->
+    <svg class="svg-deco" style="top:18px;right:18px;width:60px;transform:rotate(14deg)" fill="black"><use href="#ico-guitar"/></svg>
+    <!-- boot — lower left -->
+    <svg class="svg-deco" style="bottom:24px;left:18px;width:95px;transform:rotate(-10deg)" fill="black"><use href="#ico-boot"/></svg>
+    <!-- flute — lower right -->
+    <svg class="svg-deco" style="bottom:24px;right:22px;width:46px;transform:rotate(6deg)" fill="black"><use href="#ico-flute"/></svg>
+    <!-- note — center right -->
+    <svg class="svg-deco" style="top:50%;right:18px;width:70px;transform:translateY(-50%) rotate(15deg);opacity:0.09" fill="black"><use href="#ico-note"/></svg>
     <h1 class="done-title">That's a Wrap!</h1>
     <p class="done-msg" style="margin-top:8px;">Thanks for playing —<br>here's to Jake &amp; Ellese!</p>
   </div>
