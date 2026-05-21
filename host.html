@@ -30,13 +30,7 @@
     .sidebar-layout::before { left: 0; }
     .sidebar-layout::after  { right: 0; }
 
-    /* SVG DECORATIONS */
-    .svg-deco {
-      position: absolute;
-      pointer-events: none;
-      fill: black;
-      opacity: 0.12;
-    }
+    .svg-deco { position: absolute; pointer-events: none; }
 
     /* LOBBY */
     #h-lobby { padding: 48px calc(var(--sidebar-w) + 28px); justify-content: center; gap: 24px; text-align: center; }
@@ -84,56 +78,28 @@
     .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #bbb; margin-top: 4px; }
 
     /* BACK NAV */
-    .top-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 14px calc(var(--sidebar-w) + 14px);
-      flex-shrink: 0;
-    }
-    .btn-back {
-      background: none; border: none; cursor: pointer;
-      font-family: Arial, sans-serif; font-size: 0.85rem; font-weight: bold;
-      letter-spacing: 1px; text-transform: uppercase;
-      display: flex; align-items: center; gap: 6px;
-      -webkit-tap-highlight-color: transparent; padding: 8px 0;
-    }
+    .top-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 14px calc(var(--sidebar-w) + 14px); flex-shrink: 0; }
+    .btn-back { background: none; border: none; cursor: pointer; font-family: Arial, sans-serif; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; -webkit-tap-highlight-color: transparent; padding: 8px 0; }
     .btn-back.dark  { color: var(--red); }
     .btn-back.light { color: rgba(255,255,255,0.8); }
     .btn-back:hover { opacity: 0.7; }
-    .btn-home {
-      background: none; border: none; cursor: pointer;
-      font-family: Arial, sans-serif; font-size: 0.75rem;
-      text-transform: uppercase; letter-spacing: 1px;
-      -webkit-tap-highlight-color: transparent; padding: 8px 0;
-    }
+    .btn-home { background: none; border: none; cursor: pointer; font-family: Arial, sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; -webkit-tap-highlight-color: transparent; padding: 8px 0; }
     .btn-home.dark  { color: #aaa; }
     .btn-home.light { color: rgba(255,255,255,0.5); }
     .btn-home:hover { opacity: 0.7; }
 
-    .h-reveal-btn {
-      width: 100%; background: var(--red); color: white; border: none; padding: 22px 32px;
-      font-size: 0.9rem; font-family: Arial, sans-serif; font-weight: bold; letter-spacing: 1px;
-      cursor: pointer; text-align: center; transition: background 0.15s; flex-shrink: 0;
-    }
+    .h-reveal-btn { width: 100%; background: var(--red); color: white; border: none; padding: 22px 32px; font-size: 0.9rem; font-family: Arial, sans-serif; font-weight: bold; letter-spacing: 1px; cursor: pointer; text-align: center; transition: background 0.15s; flex-shrink: 0; }
     .h-reveal-btn:hover { background: var(--red-mid); }
 
     /* REVEAL */
-    #h-reveal {
-      background: var(--red); flex-direction: column; align-items: center;
-      justify-content: space-between; padding: 28px 16px 24px; overflow-y: auto; gap: 14px;
-    }
+    #h-reveal { background: var(--red); flex-direction: column; align-items: center; justify-content: space-between; padding: 28px 16px 24px; overflow-y: auto; gap: 14px; }
     .h-reveal-title { color: white; font-size: clamp(1.2rem, 4vw, 1.8rem); font-weight: bold; text-align: center; flex-shrink: 0; }
 
     .video-frame-outer { background: var(--pink-frame); padding: 8px; width: 100%; max-width: min(300px, calc((100vh - 260px) / 1.7778)); flex-shrink: 0; }
     .video-frame-inner { position: relative; width: 100%; padding-bottom: 177.78%; background: #000; overflow: hidden; }
     .video-frame-inner iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-    .tally-box-dark {
-      background: rgba(255,255,255,0.12); border-radius: 8px; padding: 14px 18px;
-      width: 100%; max-width: 320px; flex-shrink: 0;
-    }
+    .tally-box-dark { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 14px 18px; width: 100%; max-width: 320px; flex-shrink: 0; }
     .tally-box-dark .tally-lbl   { color: white; }
     .tally-box-dark .tally-bg    { background: rgba(255,255,255,0.2); }
     .tally-box-dark .tally-fill  { background: white; }
@@ -142,39 +108,17 @@
     .tally-box-dark .tally-box-title { color: rgba(255,255,255,0.6); }
 
     /* VERDICT BUTTONS */
-    .verdict-section {
-      width: 100%; max-width: 320px; flex-shrink: 0;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .verdict-label {
-      font-family: Arial, sans-serif; font-size: 0.72rem; text-transform: uppercase;
-      letter-spacing: 3px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 2px;
-    }
+    .verdict-section { width: 100%; max-width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; }
+    .verdict-label { font-family: Arial, sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 2px; }
     .verdict-btns { display: flex; gap: 10px; }
-    .btn-verdict-match {
-      flex: 1; background: white; color: var(--red); border: none;
-      padding: 14px 10px; font-family: Arial, sans-serif; font-weight: bold;
-      font-size: 0.9rem; letter-spacing: 0.5px; cursor: pointer;
-      transition: opacity 0.15s; -webkit-tap-highlight-color: transparent;
-    }
+    .btn-verdict-match { flex: 1; background: white; color: var(--red); border: none; padding: 14px 10px; font-family: Arial, sans-serif; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; cursor: pointer; transition: opacity 0.15s; -webkit-tap-highlight-color: transparent; }
     .btn-verdict-match:hover { opacity: 0.88; }
     .btn-verdict-match.selected { outline: 3px solid white; }
-
-    .btn-verdict-nomatch {
-      flex: 1; background: rgba(255,255,255,0.15); color: white;
-      border: 1px solid rgba(255,255,255,0.4); padding: 14px 10px;
-      font-family: Arial, sans-serif; font-weight: bold; font-size: 0.9rem;
-      letter-spacing: 0.5px; cursor: pointer;
-      transition: opacity 0.15s; -webkit-tap-highlight-color: transparent;
-    }
+    .btn-verdict-nomatch { flex: 1; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 14px 10px; font-family: Arial, sans-serif; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; cursor: pointer; transition: opacity 0.15s; -webkit-tap-highlight-color: transparent; }
     .btn-verdict-nomatch:hover { opacity: 0.88; }
     .btn-verdict-nomatch.selected { outline: 3px solid white; }
 
-    .btn-next-host {
-      width: 100%; max-width: 320px; background: white; color: var(--red); border: none;
-      padding: 16px 32px; font-size: 1rem; font-family: Arial, sans-serif; font-weight: bold;
-      letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; flex-shrink: 0;
-    }
+    .btn-next-host { width: 100%; max-width: 320px; background: white; color: var(--red); border: none; padding: 16px 32px; font-size: 1rem; font-family: Arial, sans-serif; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; flex-shrink: 0; }
     .btn-next-host:hover { opacity: 0.88; }
 
     /* FINAL */
@@ -192,293 +136,354 @@
 </head>
 <body>
 
-  <!-- ═══ SHARED SVG SYMBOL DEFINITIONS ═══ -->
-  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <symbol id="h-ico-hat" viewBox="0 0 120 80">
-        <ellipse cx="60" cy="66" rx="57" ry="14"/>
-        <path d="M20,66 Q18,44 26,28 Q36,8 60,8 Q84,8 94,28 Q102,44 100,66 Z"/>
-      </symbol>
-      <symbol id="h-ico-guitar" viewBox="0 0 70 195">
-        <rect x="24" y="0" width="22" height="22" rx="7"/>
-        <rect x="30" y="20" width="10" height="68"/>
-        <path d="M35,90 Q10,90 10,110 Q10,124 20,132 Q10,140 10,156 Q10,184 35,186 Q60,184 60,156 Q60,140 50,132 Q60,124 60,110 Q60,90 35,90 Z"/>
-      </symbol>
-      <symbol id="h-ico-flute" viewBox="0 0 40 115">
-        <path d="M12,66 L28,66 Q32,5 8,5 Z"/>
-        <rect x="18" y="66" width="4" height="34"/>
-        <ellipse cx="20" cy="102" rx="17" ry="6"/>
-      </symbol>
-      <symbol id="h-ico-note" viewBox="0 0 70 95">
-        <ellipse cx="22" cy="76" rx="20" ry="14" transform="rotate(-22,22,76)"/>
-        <rect x="38" y="8" width="7" height="70"/>
-        <path d="M45,8 Q72,20 70,46 Q52,33 45,29 Z"/>
-      </symbol>
-      <symbol id="h-ico-boot" viewBox="0 0 100 100">
-        <path d="M24,0 L40,0 L40,60 Q54,64 68,67 Q84,70 88,70 L88,82 L8,82 Q8,70 22,65 Z"/>
-        <path d="M4,82 L92,82 L92,94 Q92,100 48,100 Q4,100 4,94 Z"/>
-      </symbol>
-      <symbol id="h-ico-diamond" viewBox="0 0 90 78">
-        <path d="M45,74 L5,30 L20,6 L70,6 L85,30 Z"/>
-        <path d="M5,30 L25,30 L45,56 L65,30 L85,30" fill="none" stroke="black" stroke-width="3"/>
-      </symbol>
-    </defs>
+<!-- ═══════════════════════════════════════════
+     LOBBY
+═══════════════════════════════════════════ -->
+<div id="h-lobby" class="screen active sidebar-layout">
+
+  <!-- ring · top-left -->
+  <svg class="svg-deco" style="top:28px;left:40px;width:84px;transform:rotate(-14deg);opacity:0.27"
+       viewBox="0 0 60 70" fill="none" stroke="#7a1515" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,38 L30,8 L40,38 L30,50 Z"/>
+    <line x1="20" y1="38" x2="40" y2="38"/>
+    <line x1="22" y1="24" x2="38" y2="24"/>
+    <path d="M18,44 Q16,62 30,66 Q44,62 42,44"/>
+    <line x1="18" y1="44" x2="20" y2="38"/>
+    <line x1="42" y1="44" x2="40" y2="38"/>
   </svg>
 
-  <!-- LOBBY -->
-  <div id="h-lobby" class="screen active sidebar-layout">
-    <!-- hat — upper left -->
-    <svg class="svg-deco" style="top:28px;left:38px;width:150px;transform:rotate(-14deg)" fill="black"><use href="#h-ico-hat"/></svg>
-    <!-- guitar — upper right -->
-    <svg class="svg-deco" style="top:16px;right:38px;width:64px;transform:rotate(12deg)" fill="black"><use href="#h-ico-guitar"/></svg>
-    <!-- boot — lower left -->
-    <svg class="svg-deco" style="bottom:28px;left:38px;width:110px;transform:rotate(-10deg)" fill="black"><use href="#h-ico-boot"/></svg>
-    <!-- flute — lower right -->
-    <svg class="svg-deco" style="bottom:24px;right:44px;width:50px;transform:rotate(8deg)" fill="black"><use href="#h-ico-flute"/></svg>
-    <!-- note — mid right -->
-    <svg class="svg-deco" style="top:50%;right:38px;width:72px;transform:translateY(-50%) rotate(18deg);opacity:0.09" fill="black"><use href="#h-ico-note"/></svg>
-    <h1 class="lobby-title">He Said She Said</h1>
-    <p class="lobby-sub">Jake &amp; Ellese — Host View</p>
-    <div class="join-box">
-      <h3>Guests scan to join</h3>
-      <div id="qr-code"></div>
-    </div>
-    <button class="btn-red" onclick="hostStart()">Start Game</button>
-    <button onclick="hostReset()" style="background:none;border:none;color:var(--red-mid);font-family:Arial,sans-serif;font-size:0.8rem;text-decoration:underline;cursor:pointer;margin-top:-8px;">Reset / Clear old game state</button>
-  </div>
+  <!-- sparkles · upper -->
+  <svg class="svg-deco" style="top:52px;left:130px;width:22px;opacity:0.35" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="top:38px;right:120px;width:16px;opacity:0.30" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
 
-  <!-- QUESTION -->
-  <div id="h-question" class="screen sidebar-layout">
-    <!-- note — upper right -->
-    <svg class="svg-deco" style="top:20px;right:44px;width:64px;transform:rotate(10deg);opacity:0.09" fill="black"><use href="#h-ico-note"/></svg>
-    <!-- diamond — lower left -->
-    <svg class="svg-deco" style="bottom:80px;left:44px;width:80px;transform:rotate(-12deg);opacity:0.08" fill="black"><use href="#h-ico-diamond"/></svg>
-    <div class="top-nav">
-      <button class="btn-back dark" onclick="hostBackFromQuestion()">&#8592; Back</button>
-      <button class="btn-home dark" onclick="goLobby()">&#8962; QR Code</button>
+  <!-- guitar body · top-right -->
+  <svg class="svg-deco" style="top:22px;right:40px;width:68px;transform:rotate(14deg);opacity:0.24"
+       viewBox="0 0 80 110" fill="none" stroke="#7a1515" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,5 Q14,5 14,30 Q14,46 24,52 Q14,59 14,76 Q14,108 40,110 Q66,108 66,76 Q66,59 56,52 Q66,46 66,30 Q66,5 40,5 Z"/>
+    <circle cx="40" cy="78" r="12"/>
+    <rect x="27" y="91" width="26" height="5" rx="2"/>
+  </svg>
+
+  <!-- boot · bottom-left -->
+  <svg class="svg-deco" style="bottom:28px;left:40px;width:92px;transform:rotate(-8deg);opacity:0.25"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <!-- note · bottom-right -->
+  <svg class="svg-deco" style="bottom:28px;right:44px;width:60px;transform:rotate(10deg);opacity:0.24"
+       viewBox="0 0 55 70" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="56" rx="14" ry="10" transform="rotate(-15 16 56)"/>
+    <line x1="28" y1="48" x2="28" y2="8"/>
+    <path d="M28,8 Q50,18 46,36"/>
+  </svg>
+
+  <!-- sparkles · lower -->
+  <svg class="svg-deco" style="bottom:105px;left:120px;width:18px;opacity:0.31" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="bottom:88px;right:110px;width:14px;opacity:0.27" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <h1 class="lobby-title">He Said She Said</h1>
+  <p class="lobby-sub">Jake &amp; Ellese — Host View</p>
+  <div class="join-box">
+    <h3>Guests scan to join</h3>
+    <div id="qr-code"></div>
+  </div>
+  <button class="btn-red" onclick="hostStart()">Start Game</button>
+  <button onclick="hostReset()" style="background:none;border:none;color:var(--red-mid);font-family:Arial,sans-serif;font-size:0.8rem;text-decoration:underline;cursor:pointer;margin-top:-8px;">Reset / Clear old game state</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     QUESTION
+═══════════════════════════════════════════ -->
+<div id="h-question" class="screen sidebar-layout">
+
+  <!-- sparkle · top-right -->
+  <svg class="svg-deco" style="top:44px;right:90px;width:18px;opacity:0.30" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <!-- note · bottom-left -->
+  <svg class="svg-deco" style="bottom:80px;left:44px;width:52px;transform:rotate(-8deg);opacity:0.20"
+       viewBox="0 0 55 70" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="56" rx="14" ry="10" transform="rotate(-15 16 56)"/>
+    <line x1="28" y1="48" x2="28" y2="8"/>
+    <path d="M28,8 Q50,18 46,36"/>
+  </svg>
+
+  <div class="top-nav">
+    <button class="btn-back dark" onclick="hostBackFromQuestion()">&#8592; Back</button>
+    <button class="btn-home dark" onclick="goLobby()">&#8962; QR Code</button>
+  </div>
+  <div class="h-q-body">
+    <div class="h-q-circle" id="h-q-num">1</div>
+    <div class="h-q-label">Question</div>
+    <div class="h-q-text" id="h-q-text"></div>
+    <div class="tally-box">
+      <div class="tally-box-title">Live Votes</div>
+      <div id="h-tally-live"></div>
     </div>
-    <div class="h-q-body">
-      <div class="h-q-circle" id="h-q-num">1</div>
-      <div class="h-q-label">Question</div>
-      <div class="h-q-text" id="h-q-text"></div>
-      <div class="tally-box">
-        <div class="tally-box-title">Live Votes</div>
-        <div id="h-tally-live"></div>
+  </div>
+  <button class="h-reveal-btn" onclick="hostReveal()">Reveal Jake's Answer &rarr;</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     REVEAL (dark bg — no decos)
+═══════════════════════════════════════════ -->
+<div id="h-reveal" class="screen">
+  <div class="top-nav" style="padding-left:calc(var(--sidebar-w)+14px);padding-right:calc(var(--sidebar-w)+14px);">
+    <button class="btn-back light" onclick="hostBackFromReveal()">&#8592; Back</button>
+    <button class="btn-home light" onclick="goLobby()">&#8962; QR Code</button>
+  </div>
+  <div class="h-reveal-title" id="h-reveal-title">Jake's Answer — Q1</div>
+  <div class="video-frame-outer">
+    <div class="video-frame-inner">
+      <iframe id="h-video-frame" src="" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+    </div>
+  </div>
+  <div class="tally-box-dark">
+    <div class="tally-box-title">Votes</div>
+    <div id="h-tally-final"></div>
+  </div>
+  <div class="verdict-section">
+    <div class="verdict-label">Was Ellese right? Pick the verdict</div>
+    <div class="verdict-btns">
+      <button class="btn-verdict-match"   id="vbtn-match"   onclick="hostVerdict('match')">Match</button>
+      <button class="btn-verdict-nomatch" id="vbtn-nomatch" onclick="hostVerdict('no-match')">No Match</button>
+    </div>
+  </div>
+  <button class="btn-next-host" id="h-next-btn" onclick="hostNext()">Next Question &rarr;</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FINAL
+═══════════════════════════════════════════ -->
+<div id="h-final" class="screen sidebar-layout">
+
+  <!-- ring · top-left -->
+  <svg class="svg-deco" style="top:28px;left:40px;width:84px;transform:rotate(-12deg);opacity:0.26"
+       viewBox="0 0 60 70" fill="none" stroke="#7a1515" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,38 L30,8 L40,38 L30,50 Z"/>
+    <line x1="20" y1="38" x2="40" y2="38"/>
+    <line x1="22" y1="24" x2="38" y2="24"/>
+    <path d="M18,44 Q16,62 30,66 Q44,62 42,44"/>
+    <line x1="18" y1="44" x2="20" y2="38"/>
+    <line x1="42" y1="44" x2="40" y2="38"/>
+  </svg>
+
+  <!-- guitar body · top-right -->
+  <svg class="svg-deco" style="top:22px;right:40px;width:68px;transform:rotate(14deg);opacity:0.24"
+       viewBox="0 0 80 110" fill="none" stroke="#7a1515" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,5 Q14,5 14,30 Q14,46 24,52 Q14,59 14,76 Q14,108 40,110 Q66,108 66,76 Q66,59 56,52 Q66,46 66,30 Q66,5 40,5 Z"/>
+    <circle cx="40" cy="78" r="12"/>
+    <rect x="27" y="91" width="26" height="5" rx="2"/>
+  </svg>
+
+  <!-- sparkles scattered -->
+  <svg class="svg-deco" style="top:54px;left:132px;width:22px;opacity:0.35" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="top:38px;right:116px;width:15px;opacity:0.28" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="bottom:108px;left:122px;width:18px;opacity:0.31" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="bottom:90px;right:108px;width:13px;opacity:0.27" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <!-- boot · bottom-left -->
+  <svg class="svg-deco" style="bottom:28px;left:40px;width:92px;transform:rotate(-10deg);opacity:0.25"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <!-- note · bottom-right -->
+  <svg class="svg-deco" style="bottom:28px;right:44px;width:60px;transform:rotate(8deg);opacity:0.24"
+       viewBox="0 0 55 70" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="56" rx="14" ry="10" transform="rotate(-15 16 56)"/>
+    <line x1="28" y1="48" x2="28" y2="8"/>
+    <path d="M28,8 Q50,18 46,36"/>
+  </svg>
+
+  <h1 class="final-title" style="margin-top:8px;">That's a Wrap!</h1>
+  <p class="final-names">Jake &amp; Ellese</p>
+  <p class="final-msg">Thanks for playing — here's to Jake &amp; Ellese and a lifetime of answered questions.</p>
+  <button class="btn-red" onclick="hostReset()">Play Again</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyC764ibO9kNbgCQwzDun1v_98_F8okcUWg",
+    authDomain: "bachelorette-game2026.firebaseapp.com",
+    databaseURL: "https://bachelorette-game2026-default-rtdb.firebaseio.com",
+    projectId: "bachelorette-game2026",
+    storageBucket: "bachelorette-game2026.firebasestorage.app",
+    messagingSenderId: "152027602257",
+    appId: "1:152027602257:web:3ac4848dbc16725e414770"
+  });
+  const db = firebase.database();
+
+  const questions = [
+    { q: "Who made the first move?",                                               id: "1xzoYb7003We5H9jHIW8ymkkftLoKjzvP" },
+    { q: "Who said \"I love you\" first?",                                         id: "1Uh6JB5tfdf8oXpdg13Uac0aUzwsOpKPQ" },
+    { q: "What is Ellese's favorite color?",                                       id: "1yc8hX_D2xKK01HkCKRWvh3eUbC_uVRKR" },
+    { q: "What is something Ellese is good at?",                                   id: "1SS5fMjMVitITFFzdJ-zxCyEklZSVSvCq" },
+    { q: "What is Jake's most annoying habit?",                                    id: "1Kl1uXrZJmOgPedfdmfSJNH3KoKkI-wtD" },
+    { q: "Who is more likely to win an argument?",                                 id: "1nExBjXMPvITwPbo5UT1lm7NVU8xPceCc" },
+    { q: "What is something Ellese does that drives you crazy (in a loving way)?", id: "1X2oMsYPFjOl9CvkPV_yrpTd3tRJjz7HN" },
+    { q: "What is Ellese's most worn outfit at home?",                             id: "1hPcMIXvXccLxhZKbhFdeUQm3t8s37_x-" },
+    { q: "Where do you see you and Jake in five years?",                           id: "1nw0_IF3LazlyntPacmwyp7bDWWp4lIVT" },
+    { q: "What would Jake say Ellese is not good at?",                             id: "1eUHbheu7fD3iSaDEIoKGJR6OctV_Ndyk" },
+    { q: "What is Ellese's weirdest habit?",                                       id: "1k8bihLRvojd2IPJVXbutOhUkIPDRKlYl" },
+    { q: "What is Jake's favorite memory with Ellese?",                            id: "1fSPULYp6exBNmIpNubbHr7Z9ZHORPZI1" },
+    { q: "What is Jake's go-to apology?",                                          id: "1DQDosGsxTUvHkWCaMooTqZ6g6a2I01ew" },
+    { q: "What are you most excited for in married life?",                         id: "1U1qoo-ptHCi8r3IMAnztBXzcc3ANe8Xs" },
+  ];
+
+  let currentQIndex = 0;
+
+  new QRCode(document.getElementById('qr-code'), {
+    text: 'https://alwaysreddyathletics.github.io/BacheloretteGame/',
+    width: 160, height: 160,
+    colorDark: '#7a1515', colorLight: '#ffffff',
+  });
+
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function renderTally(el, votes) {
+    const r = (votes && votes.match) || 0;
+    const w = (votes && votes.nomatch) || 0;
+    const total = r + w;
+    const rPct = total ? Math.round((r / total) * 100) : 0;
+    const wPct = total ? 100 - rPct : 0;
+    el.innerHTML = `
+      <div class="tally-row">
+        <div class="tally-lbl">Match</div>
+        <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
+        <div class="tally-count">${r}</div>
       </div>
-    </div>
-    <button class="h-reveal-btn" onclick="hostReveal()">
-      Reveal Jake's Answer &rarr;
-    </button>
-  </div>
-
-  <!-- REVEAL (no decorations — dark red bg) -->
-  <div id="h-reveal" class="screen">
-    <div class="top-nav" style="padding-left:calc(var(--sidebar-w)+14px);padding-right:calc(var(--sidebar-w)+14px);">
-      <button class="btn-back light" onclick="hostBackFromReveal()">&#8592; Back</button>
-      <button class="btn-home light" onclick="goLobby()">&#8962; QR Code</button>
-    </div>
-    <div class="h-reveal-title" id="h-reveal-title">Jake's Answer — Q1</div>
-
-    <div class="video-frame-outer">
-      <div class="video-frame-inner">
-        <iframe id="h-video-frame" src="" allowfullscreen
-          allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+      <div class="tally-row">
+        <div class="tally-lbl">No Match</div>
+        <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
+        <div class="tally-count">${w}</div>
       </div>
-    </div>
+      <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
+  }
 
-    <div class="tally-box-dark">
-      <div class="tally-box-title">Votes</div>
-      <div id="h-tally-final"></div>
-    </div>
+  function goLobby() {
+    db.ref('game').set({ state: 'waiting' });
+    gameStarted = false;
+    show('h-lobby');
+  }
 
-    <div class="verdict-section">
-      <div class="verdict-label">Was Ellese right? Pick the verdict</div>
-      <div class="verdict-btns">
-        <button class="btn-verdict-match"   id="vbtn-match"   onclick="hostVerdict('match')">Match</button>
-        <button class="btn-verdict-nomatch" id="vbtn-nomatch" onclick="hostVerdict('no-match')">No Match</button>
-      </div>
-    </div>
+  function hostBackFromQuestion() {
+    gameStarted = true;
+    if (currentQIndex === 0) {
+      goLobby();
+    } else {
+      db.ref('game').set({ state: 'question', qIndex: currentQIndex - 1, votes: { match: 0, nomatch: 0 } });
+    }
+  }
 
-    <button class="btn-next-host" id="h-next-btn" onclick="hostNext()">Next Question &rarr;</button>
-  </div>
+  function hostBackFromReveal() {
+    gameStarted = true;
+    document.getElementById('h-video-frame').src = '';
+    document.getElementById('vbtn-match').classList.remove('selected');
+    document.getElementById('vbtn-nomatch').classList.remove('selected');
+    db.ref('game').set({ state: 'question', qIndex: currentQIndex, votes: { match: 0, nomatch: 0 } });
+  }
 
-  <!-- FINAL -->
-  <div id="h-final" class="screen sidebar-layout">
-    <!-- hat — upper left -->
-    <svg class="svg-deco" style="top:28px;left:38px;width:150px;transform:rotate(-12deg)" fill="black"><use href="#h-ico-hat"/></svg>
-    <!-- guitar — upper right -->
-    <svg class="svg-deco" style="top:16px;right:38px;width:64px;transform:rotate(14deg)" fill="black"><use href="#h-ico-guitar"/></svg>
-    <!-- note — lower left -->
-    <svg class="svg-deco" style="bottom:28px;left:44px;width:72px;transform:rotate(-8deg)" fill="black"><use href="#h-ico-note"/></svg>
-    <!-- flute — lower right -->
-    <svg class="svg-deco" style="bottom:24px;right:44px;width:50px;transform:rotate(6deg)" fill="black"><use href="#h-ico-flute"/></svg>
-    <!-- boot — mid left -->
-    <svg class="svg-deco" style="top:50%;left:38px;width:100px;transform:translateY(-50%) rotate(-12deg);opacity:0.09" fill="black"><use href="#h-ico-boot"/></svg>
-    <h1 class="final-title" style="margin-top:8px;">That's a Wrap!</h1>
-    <p class="final-names">Jake &amp; Ellese</p>
-    <p class="final-msg">Thanks for playing — here's to Jake &amp; Ellese and a lifetime of answered questions.</p>
-    <button class="btn-red" onclick="hostReset()">Play Again</button>
-  </div>
+  function hostStart() {
+    gameStarted = true;
+    db.ref('game').set({ state: 'question', qIndex: 0, votes: { match: 0, nomatch: 0 } });
+  }
 
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script>
-    firebase.initializeApp({
-      apiKey: "AIzaSyC764ibO9kNbgCQwzDun1v_98_F8okcUWg",
-      authDomain: "bachelorette-game2026.firebaseapp.com",
-      databaseURL: "https://bachelorette-game2026-default-rtdb.firebaseio.com",
-      projectId: "bachelorette-game2026",
-      storageBucket: "bachelorette-game2026.firebasestorage.app",
-      messagingSenderId: "152027602257",
-      appId: "1:152027602257:web:3ac4848dbc16725e414770"
-    });
-    const db = firebase.database();
+  function hostReveal() {
+    db.ref('game/state').set('reveal');
+    document.getElementById('h-video-frame').src =
+      `https://drive.google.com/file/d/${questions[currentQIndex].id}/preview`;
+  }
 
-    const questions = [
-      { q: "Who made the first move?",                                              id: "1xzoYb7003We5H9jHIW8ymkkftLoKjzvP" },
-      { q: "Who said \"I love you\" first?",                                        id: "1Uh6JB5tfdf8oXpdg13Uac0aUzwsOpKPQ" },
-      { q: "What is Ellese's favorite color?",                                      id: "1yc8hX_D2xKK01HkCKRWvh3eUbC_uVRKR" },
-      { q: "What is something Ellese is good at?",                                  id: "1SS5fMjMVitITFFzdJ-zxCyEklZSVSvCq" },
-      { q: "What is Jake's most annoying habit?",                                   id: "1Kl1uXrZJmOgPedfdmfSJNH3KoKkI-wtD" },
-      { q: "Who is more likely to win an argument?",                                id: "1nExBjXMPvITwPbo5UT1lm7NVU8xPceCc" },
-      { q: "What is something Ellese does that drives you crazy (in a loving way)?",id: "1X2oMsYPFjOl9CvkPV_yrpTd3tRJjz7HN" },
-      { q: "What is Ellese's most worn outfit at home?",                            id: "1hPcMIXvXccLxhZKbhFdeUQm3t8s37_x-" },
-      { q: "Where do you see you and Jake in five years?",                          id: "1nw0_IF3LazlyntPacmwyp7bDWWp4lIVT" },
-      { q: "What would Jake say Ellese is not good at?",                            id: "1eUHbheu7fD3iSaDEIoKGJR6OctV_Ndyk" },
-      { q: "What is Ellese's weirdest habit?",                                      id: "1k8bihLRvojd2IPJVXbutOhUkIPDRKlYl" },
-      { q: "What is Jake's favorite memory with Ellese?",                           id: "1fSPULYp6exBNmIpNubbHr7Z9ZHORPZI1" },
-      { q: "What is Jake's go-to apology?",                                         id: "1DQDosGsxTUvHkWCaMooTqZ6g6a2I01ew" },
-      { q: "What are you most excited for in married life?",                        id: "1U1qoo-ptHCi8r3IMAnztBXzcc3ANe8Xs" },
-    ];
+  function hostVerdict(v) {
+    db.ref('game/verdict').set(v);
+    document.getElementById('vbtn-match').classList.toggle('selected', v === 'match');
+    document.getElementById('vbtn-nomatch').classList.toggle('selected', v === 'no-match');
+  }
 
-    let currentQIndex = 0;
+  function hostNext() {
+    document.getElementById('h-video-frame').src = '';
+    document.getElementById('vbtn-match').classList.remove('selected');
+    document.getElementById('vbtn-nomatch').classList.remove('selected');
+    const next = currentQIndex + 1;
+    if (next >= questions.length) {
+      db.ref('game/state').set('done');
+    } else {
+      db.ref('game').set({ state: 'question', qIndex: next, votes: { match: 0, nomatch: 0 } });
+    }
+  }
 
-    new QRCode(document.getElementById('qr-code'), {
-      text: 'https://alwaysreddyathletics.github.io/BacheloretteGame/',
-      width: 160, height: 160,
-      colorDark: '#7a1515', colorLight: '#ffffff',
-    });
+  function hostReset() {
+    db.ref('game').set({ state: 'waiting' });
+    show('h-lobby');
+  }
 
-    function show(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+  let gameStarted = false;
+
+  db.ref('game').on('value', snap => {
+    const g = snap.val();
+    if (!g || g.state === 'waiting' || !g.state) { gameStarted = false; return; }
+    if (!gameStarted) return;
+
+    const { state, qIndex, votes } = g;
+    currentQIndex = qIndex || 0;
+    const qNum = currentQIndex + 1;
+
+    if (state === 'question') {
+      document.getElementById('h-q-num').textContent = qNum;
+      document.getElementById('h-q-text').textContent = questions[currentQIndex].q;
+      renderTally(document.getElementById('h-tally-live'), votes);
+      show('h-question');
+      return;
     }
 
-    function renderTally(el, votes) {
-      const r = (votes && votes.match) || 0;
-      const w = (votes && votes.nomatch) || 0;
-      const total = r + w;
-      const rPct = total ? Math.round((r / total) * 100) : 0;
-      const wPct = total ? 100 - rPct : 0;
-      el.innerHTML = `
-        <div class="tally-row">
-          <div class="tally-lbl">Match</div>
-          <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
-          <div class="tally-count">${r}</div>
-        </div>
-        <div class="tally-row">
-          <div class="tally-lbl">No Match</div>
-          <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
-          <div class="tally-count">${w}</div>
-        </div>
-        <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
+    if (state === 'reveal') {
+      document.getElementById('h-reveal-title').textContent = `Jake's Answer — Q${qNum}`;
+      document.getElementById('h-next-btn').textContent =
+        currentQIndex === questions.length - 1 ? 'Finish Game' : 'Next Question →';
+      renderTally(document.getElementById('h-tally-final'), votes);
+      show('h-reveal');
+      return;
     }
 
-    function goLobby() {
-      db.ref('game').set({ state: 'waiting' });
-      gameStarted = false;
-      show('h-lobby');
-    }
+    if (state === 'done') { show('h-final'); }
+  });
 
-    function hostBackFromQuestion() {
-      gameStarted = true;
-      if (currentQIndex === 0) {
-        goLobby();
-      } else {
-        db.ref('game').set({ state: 'question', qIndex: currentQIndex - 1, votes: { match: 0, nomatch: 0 } });
-      }
-    }
-
-    function hostBackFromReveal() {
-      gameStarted = true;
-      document.getElementById('h-video-frame').src = '';
-      document.getElementById('vbtn-match').classList.remove('selected');
-      document.getElementById('vbtn-nomatch').classList.remove('selected');
-      db.ref('game').set({ state: 'question', qIndex: currentQIndex, votes: { match: 0, nomatch: 0 } });
-    }
-
-    function hostStart() {
-      gameStarted = true;
-      db.ref('game').set({ state: 'question', qIndex: 0, votes: { match: 0, nomatch: 0 } });
-    }
-
-    function hostReveal() {
-      db.ref('game/state').set('reveal');
-      document.getElementById('h-video-frame').src =
-        `https://drive.google.com/file/d/${questions[currentQIndex].id}/preview`;
-    }
-
-    function hostVerdict(v) {
-      db.ref('game/verdict').set(v);
-      document.getElementById('vbtn-match').classList.toggle('selected', v === 'match');
-      document.getElementById('vbtn-nomatch').classList.toggle('selected', v === 'no-match');
-    }
-
-    function hostNext() {
-      document.getElementById('h-video-frame').src = '';
-      document.getElementById('vbtn-match').classList.remove('selected');
-      document.getElementById('vbtn-nomatch').classList.remove('selected');
-      const next = currentQIndex + 1;
-      if (next >= questions.length) {
-        db.ref('game/state').set('done');
-      } else {
-        db.ref('game').set({ state: 'question', qIndex: next, votes: { match: 0, nomatch: 0 } });
-      }
-    }
-
-    function hostReset() {
-      db.ref('game').set({ state: 'waiting' });
-      show('h-lobby');
-    }
-
-    let gameStarted = false;
-
-    db.ref('game').on('value', snap => {
-      const g = snap.val();
-      if (!g || g.state === 'waiting' || !g.state) { gameStarted = false; return; }
-      if (!gameStarted) return;
-
-      const { state, qIndex, votes } = g;
-      currentQIndex = qIndex || 0;
-      const qNum = currentQIndex + 1;
-
-      if (state === 'question') {
-        document.getElementById('h-q-num').textContent = qNum;
-        document.getElementById('h-q-text').textContent = questions[currentQIndex].q;
-        renderTally(document.getElementById('h-tally-live'), votes);
-        show('h-question');
-        return;
-      }
-
-      if (state === 'reveal') {
-        document.getElementById('h-reveal-title').textContent = `Jake's Answer — Q${qNum}`;
-        document.getElementById('h-next-btn').textContent =
-          currentQIndex === questions.length - 1 ? 'Finish Game' : 'Next Question →';
-        renderTally(document.getElementById('h-tally-final'), votes);
-        show('h-reveal');
-        return;
-      }
-
-      if (state === 'done') { show('h-final'); }
-    });
-
-    db.ref('game/votes').on('value', snap => {
-      const el = document.getElementById('h-tally-live');
-      if (el) renderTally(el, snap.val());
-      const el2 = document.getElementById('h-tally-final');
-      if (el2) renderTally(el2, snap.val());
-    });
-  </script>
+  db.ref('game/votes').on('value', snap => {
+    const el = document.getElementById('h-tally-live');
+    if (el) renderTally(el, snap.val());
+    const el2 = document.getElementById('h-tally-final');
+    if (el2) renderTally(el2, snap.val());
+  });
+</script>
 </body>
 </html>

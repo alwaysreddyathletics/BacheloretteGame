@@ -44,13 +44,7 @@
     }
     .screen.active { display: flex; }
 
-    /* SVG DECORATIONS */
-    .svg-deco {
-      position: absolute;
-      pointer-events: none;
-      fill: black;
-      opacity: 0.12;
-    }
+    .svg-deco { position: absolute; pointer-events: none; }
 
     /* WAITING */
     .wait-title { font-size: clamp(2rem, 7vw, 3rem); color: var(--red); font-weight: bold; margin-bottom: 6px; }
@@ -110,17 +104,11 @@
     .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #aaa; margin-top: 6px; }
 
     /* VERDICT RESULT */
-    .verdict-win {
-      font-size: clamp(2.4rem, 9vw, 4rem);
-      font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1;
-    }
-    .verdict-lose {
-      font-size: clamp(2.4rem, 9vw, 4rem);
-      font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1;
-    }
-    .verdict-sub { color: #777; font-style: italic; margin-bottom: 32px; font-size: 0.95rem; }
+    .verdict-win  { font-size: clamp(2.4rem, 9vw, 4rem); font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
+    .verdict-lose { font-size: clamp(2.4rem, 9vw, 4rem); font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
+    .verdict-sub  { color: #777; font-style: italic; margin-bottom: 32px; font-size: 0.95rem; }
 
-    /* REVEAL (waiting) */
+    /* REVEAL */
     .reveal-headline { font-size: clamp(1.6rem, 6vw, 2.2rem); color: var(--red); font-weight: bold; margin-bottom: 8px; }
     .reveal-sub { color: #777; font-style: italic; margin-bottom: 36px; font-size: 0.95rem; }
 
@@ -131,256 +119,396 @@
 </head>
 <body>
 
-  <!-- ═══ SHARED SVG SYMBOL DEFINITIONS ═══ -->
-  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <!-- COWBOY HAT: wide brim + dome crown -->
-      <symbol id="ico-hat" viewBox="0 0 120 80">
-        <ellipse cx="60" cy="66" rx="57" ry="14"/>
-        <path d="M20,66 Q18,44 26,28 Q36,8 60,8 Q84,8 94,28 Q102,44 100,66 Z"/>
-      </symbol>
-      <!-- GUITAR: headstock + neck + hourglass body -->
-      <symbol id="ico-guitar" viewBox="0 0 70 195">
-        <rect x="24" y="0" width="22" height="22" rx="7"/>
-        <rect x="30" y="20" width="10" height="68"/>
-        <path d="M35,90 Q10,90 10,110 Q10,124 20,132 Q10,140 10,156 Q10,184 35,186 Q60,184 60,156 Q60,140 50,132 Q60,124 60,110 Q60,90 35,90 Z"/>
-      </symbol>
-      <!-- CHAMPAGNE FLUTE: wide rim, narrow base, stem, foot -->
-      <symbol id="ico-flute" viewBox="0 0 40 115">
-        <path d="M12,66 L28,66 Q32,5 8,5 Z"/>
-        <rect x="18" y="66" width="4" height="34"/>
-        <ellipse cx="20" cy="102" rx="17" ry="6"/>
-      </symbol>
-      <!-- MUSIC NOTE: oval head + stem + flag -->
-      <symbol id="ico-note" viewBox="0 0 70 95">
-        <ellipse cx="22" cy="76" rx="20" ry="14" transform="rotate(-22,22,76)"/>
-        <rect x="38" y="8" width="7" height="70"/>
-        <path d="M45,8 Q72,20 70,46 Q52,33 45,29 Z"/>
-      </symbol>
-      <!-- COWBOY BOOT: shaft + toe + heel -->
-      <symbol id="ico-boot" viewBox="0 0 100 100">
-        <path d="M24,0 L40,0 L40,60 Q54,64 68,67 Q84,70 88,70 L88,82 L8,82 Q8,70 22,65 Z"/>
-        <path d="M4,82 L92,82 L92,94 Q92,100 48,100 Q4,100 4,94 Z"/>
-      </symbol>
-      <!-- DIAMOND GEM -->
-      <symbol id="ico-diamond" viewBox="0 0 90 78">
-        <path d="M45,74 L5,30 L20,6 L70,6 L85,30 Z"/>
-        <path d="M5,30 L25,30 L45,56 L65,30 L85,30" fill="none" stroke="black" stroke-width="3"/>
-      </symbol>
-    </defs>
+<!-- ═══════════════════════════════════════════
+     WAITING SCREEN
+═══════════════════════════════════════════ -->
+<div id="s-wait" class="screen active">
+
+  <!-- diamond ring · top-left -->
+  <svg class="svg-deco" style="top:28px;left:20px;width:72px;transform:rotate(-14deg);opacity:0.28"
+       viewBox="0 0 60 70" fill="none" stroke="#7a1515" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,38 L30,8 L40,38 L30,50 Z"/>
+    <line x1="20" y1="38" x2="40" y2="38"/>
+    <line x1="22" y1="24" x2="38" y2="24"/>
+    <path d="M18,44 Q16,62 30,66 Q44,62 42,44"/>
+    <line x1="18" y1="44" x2="20" y2="38"/>
+    <line x1="42" y1="44" x2="40" y2="38"/>
   </svg>
 
-  <!-- WAITING -->
-  <div id="s-wait" class="screen active">
-    <!-- hat — upper left, large -->
-    <svg class="svg-deco" style="top:30px;left:18px;width:140px;transform:rotate(-14deg)" fill="black"><use href="#ico-hat"/></svg>
-    <!-- guitar — right side, tall -->
-    <svg class="svg-deco" style="top:20px;right:18px;width:60px;transform:rotate(12deg)" fill="black"><use href="#ico-guitar"/></svg>
-    <!-- music note — lower left -->
-    <svg class="svg-deco" style="bottom:30px;left:20px;width:80px;transform:rotate(-10deg)" fill="black"><use href="#ico-note"/></svg>
-    <!-- flute — lower right -->
-    <svg class="svg-deco" style="bottom:24px;right:24px;width:44px;transform:rotate(8deg)" fill="black"><use href="#ico-flute"/></svg>
-    <h1 class="wait-title">He Said She Said</h1>
-    <p class="wait-sub">Jake &amp; Ellese</p>
-    <p class="wait-msg" style="margin-top:20px;"><span class="pulse"></span>Waiting for the host to start…</p>
-  </div>
+  <!-- sparkles · upper area -->
+  <svg class="svg-deco" style="top:50px;left:98px;width:20px;opacity:0.35" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="top:36px;right:80px;width:14px;opacity:0.30" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
 
-  <!-- VOTING -->
-  <div id="s-vote" class="screen">
-    <!-- diamond — upper left -->
-    <svg class="svg-deco" style="top:24px;left:18px;width:90px;transform:rotate(-12deg);opacity:0.10" fill="black"><use href="#ico-diamond"/></svg>
-    <!-- boot — lower right -->
-    <svg class="svg-deco" style="bottom:24px;right:18px;width:95px;transform:rotate(8deg);opacity:0.10" fill="black"><use href="#ico-boot"/></svg>
-    <!-- small hat — lower left -->
-    <svg class="svg-deco" style="bottom:28px;left:16px;width:80px;transform:rotate(-8deg);opacity:0.08" fill="black"><use href="#ico-hat"/></svg>
-    <div class="q-label" id="g-q-num">Question 1</div>
-    <div class="q-text-guest" id="g-q-text"></div>
-    <div id="vote-input">
-      <div class="vote-prompt">Will Ellese's answer match Jake's?</div>
-      <div class="vote-btns-guest">
-        <button class="btn-match"   onclick="castVote('match')">Match</button>
-        <button class="btn-nomatch" onclick="castVote('no-match')">No Match</button>
+  <!-- guitar body · top-right -->
+  <svg class="svg-deco" style="top:22px;right:20px;width:60px;transform:rotate(14deg);opacity:0.24"
+       viewBox="0 0 80 110" fill="none" stroke="#7a1515" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,5 Q14,5 14,30 Q14,46 24,52 Q14,59 14,76 Q14,108 40,110 Q66,108 66,76 Q66,59 56,52 Q66,46 66,30 Q66,5 40,5 Z"/>
+    <circle cx="40" cy="78" r="12"/>
+    <rect x="27" y="91" width="26" height="5" rx="2"/>
+  </svg>
+
+  <!-- cowboy boot · bottom-left -->
+  <svg class="svg-deco" style="bottom:26px;left:18px;width:82px;transform:rotate(-8deg);opacity:0.26"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <!-- music note · bottom-right -->
+  <svg class="svg-deco" style="bottom:28px;right:22px;width:52px;transform:rotate(10deg);opacity:0.25"
+       viewBox="0 0 55 70" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="56" rx="14" ry="10" transform="rotate(-15 16 56)"/>
+    <line x1="28" y1="48" x2="28" y2="8"/>
+    <path d="M28,8 Q50,18 46,36"/>
+  </svg>
+
+  <!-- sparkles · lower area -->
+  <svg class="svg-deco" style="bottom:100px;left:58px;width:16px;opacity:0.32" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="bottom:85px;right:55px;width:12px;opacity:0.28" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <h1 class="wait-title">He Said She Said</h1>
+  <p class="wait-sub">Jake &amp; Ellese</p>
+  <p class="wait-msg" style="margin-top:20px;"><span class="pulse"></span>Waiting for the host to start…</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VOTING SCREEN
+═══════════════════════════════════════════ -->
+<div id="s-vote" class="screen">
+
+  <!-- ring · top-left -->
+  <svg class="svg-deco" style="top:28px;left:20px;width:62px;transform:rotate(-10deg);opacity:0.22"
+       viewBox="0 0 60 70" fill="none" stroke="#7a1515" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,38 L30,8 L40,38 L30,50 Z"/>
+    <line x1="20" y1="38" x2="40" y2="38"/>
+    <line x1="22" y1="24" x2="38" y2="24"/>
+    <path d="M18,44 Q16,62 30,66 Q44,62 42,44"/>
+    <line x1="18" y1="44" x2="20" y2="38"/>
+    <line x1="42" y1="44" x2="40" y2="38"/>
+  </svg>
+
+  <!-- sparkle · top-right area -->
+  <svg class="svg-deco" style="top:42px;right:65px;width:16px;opacity:0.30" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <!-- boot · bottom-right -->
+  <svg class="svg-deco" style="bottom:26px;right:18px;width:80px;transform:rotate(8deg);opacity:0.22"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <!-- sparkle · bottom-left -->
+  <svg class="svg-deco" style="bottom:90px;left:52px;width:14px;opacity:0.28" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <div class="q-label" id="g-q-num">Question 1</div>
+  <div class="q-text-guest" id="g-q-text"></div>
+  <div id="vote-input">
+    <div class="vote-prompt">Will Ellese's answer match Jake's?</div>
+    <div class="vote-btns-guest">
+      <button class="btn-match"   onclick="castVote('match')">Match</button>
+      <button class="btn-nomatch" onclick="castVote('no-match')">No Match</button>
+    </div>
+  </div>
+  <div id="vote-result" style="display:none; width:100%;">
+    <div class="voted-badge">
+      <div class="vb-label">You voted</div>
+      <div class="vb-choice" id="vb-choice-text"></div>
+    </div>
+    <div class="tally-wrap" id="tally-voted" style="margin:0 auto;"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     WATCHING JAKE (no verdict)
+═══════════════════════════════════════════ -->
+<div id="s-reveal" class="screen">
+
+  <!-- guitar body · left side, vertically centered -->
+  <svg class="svg-deco" style="left:18px;top:50%;transform:translateY(-52%) rotate(-10deg);width:56px;opacity:0.23"
+       viewBox="0 0 80 110" fill="none" stroke="#7a1515" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,5 Q14,5 14,30 Q14,46 24,52 Q14,59 14,76 Q14,108 40,110 Q66,108 66,76 Q66,59 56,52 Q66,46 66,30 Q66,5 40,5 Z"/>
+    <circle cx="40" cy="78" r="12"/>
+    <rect x="27" y="91" width="26" height="5" rx="2"/>
+  </svg>
+
+  <!-- sparkles -->
+  <svg class="svg-deco" style="top:44px;right:68px;width:18px;opacity:0.32" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="top:68px;left:72px;width:13px;opacity:0.26" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <!-- boot · bottom-right -->
+  <svg class="svg-deco" style="bottom:26px;right:18px;width:76px;transform:rotate(8deg);opacity:0.23"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <div class="q-label" id="g-reveal-num">Question 1</div>
+  <div class="reveal-headline">Jake's answering now!</div>
+  <div class="reveal-sub">Watch the host screen</div>
+  <div class="tally-wrap" id="tally-reveal" style="margin:0 auto;"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VERDICT RESULT
+═══════════════════════════════════════════ -->
+<div id="s-verdict" class="screen">
+
+  <!-- ring · top-right -->
+  <svg class="svg-deco" style="top:26px;right:20px;width:68px;transform:rotate(12deg);opacity:0.24"
+       viewBox="0 0 60 70" fill="none" stroke="#7a1515" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,38 L30,8 L40,38 L30,50 Z"/>
+    <line x1="20" y1="38" x2="40" y2="38"/>
+    <line x1="22" y1="24" x2="38" y2="24"/>
+    <path d="M18,44 Q16,62 30,66 Q44,62 42,44"/>
+    <line x1="18" y1="44" x2="20" y2="38"/>
+    <line x1="42" y1="44" x2="40" y2="38"/>
+  </svg>
+
+  <!-- sparkles -->
+  <svg class="svg-deco" style="top:50px;left:68px;width:18px;opacity:0.33" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="top:38px;right:96px;width:12px;opacity:0.28" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <!-- boot · bottom-left -->
+  <svg class="svg-deco" style="bottom:26px;left:18px;width:80px;transform:rotate(-10deg);opacity:0.24"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <!-- note · bottom-right -->
+  <svg class="svg-deco" style="bottom:28px;right:20px;width:50px;transform:rotate(8deg);opacity:0.23"
+       viewBox="0 0 55 70" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="56" rx="14" ry="10" transform="rotate(-15 16 56)"/>
+    <line x1="28" y1="48" x2="28" y2="8"/>
+    <path d="M28,8 Q50,18 46,36"/>
+  </svg>
+
+  <!-- sparkle · bottom area -->
+  <svg class="svg-deco" style="bottom:96px;right:58px;width:15px;opacity:0.29" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <div class="q-label" id="g-verdict-num">Question 1</div>
+  <div id="verdict-win-block" style="display:none;">
+    <div class="verdict-win">You're Right!</div>
+    <div class="verdict-sub">Great minds think alike</div>
+  </div>
+  <div id="verdict-lose-block" style="display:none;">
+    <div class="verdict-lose">Drink Bitch!</div>
+    <div class="verdict-sub">Wrong answer — bottoms up</div>
+  </div>
+  <div id="verdict-novote-block" style="display:none;">
+    <div class="verdict-lose" style="font-size:clamp(1.6rem,6vw,2.4rem);">Watch &amp; Learn</div>
+    <div class="verdict-sub">Next time vote faster!</div>
+  </div>
+  <div class="tally-wrap" id="tally-verdict" style="margin:0 auto;"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DONE SCREEN
+═══════════════════════════════════════════ -->
+<div id="s-done" class="screen">
+
+  <!-- ring · top-left -->
+  <svg class="svg-deco" style="top:28px;left:20px;width:74px;transform:rotate(-14deg);opacity:0.26"
+       viewBox="0 0 60 70" fill="none" stroke="#7a1515" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,38 L30,8 L40,38 L30,50 Z"/>
+    <line x1="20" y1="38" x2="40" y2="38"/>
+    <line x1="22" y1="24" x2="38" y2="24"/>
+    <path d="M18,44 Q16,62 30,66 Q44,62 42,44"/>
+    <line x1="18" y1="44" x2="20" y2="38"/>
+    <line x1="42" y1="44" x2="40" y2="38"/>
+  </svg>
+
+  <!-- guitar body · top-right -->
+  <svg class="svg-deco" style="top:20px;right:18px;width:60px;transform:rotate(14deg);opacity:0.24"
+       viewBox="0 0 80 110" fill="none" stroke="#7a1515" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,5 Q14,5 14,30 Q14,46 24,52 Q14,59 14,76 Q14,108 40,110 Q66,108 66,76 Q66,59 56,52 Q66,46 66,30 Q66,5 40,5 Z"/>
+    <circle cx="40" cy="78" r="12"/>
+    <rect x="27" y="91" width="26" height="5" rx="2"/>
+  </svg>
+
+  <!-- sparkles scattered -->
+  <svg class="svg-deco" style="top:50px;left:100px;width:20px;opacity:0.35" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="top:38px;right:84px;width:14px;opacity:0.30" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="bottom:96px;left:60px;width:16px;opacity:0.30" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+  <svg class="svg-deco" style="bottom:80px;right:58px;width:12px;opacity:0.26" viewBox="0 0 40 40" fill="#7a1515" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 L23.5,16.5 L40,20 L23.5,23.5 L20,40 L16.5,23.5 L0,20 L16.5,16.5 Z"/>
+  </svg>
+
+  <!-- boot · bottom-left -->
+  <svg class="svg-deco" style="bottom:26px;left:18px;width:82px;transform:rotate(-10deg);opacity:0.25"
+       viewBox="0 0 70 100" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,5 Q14,5 12,10 L12,62 Q4,67 3,79 Q2,90 9,94 Q17,98 36,98 Q58,98 63,93 Q68,87 66,78 Q64,69 53,64 L50,62 L50,10 Q50,5 46,5 Z"/>
+    <path d="M18,22 Q32,17 46,22"/>
+    <path d="M18,33 Q32,28 46,33"/>
+    <path d="M4,87 Q22,91 38,91"/>
+  </svg>
+
+  <!-- note · bottom-right -->
+  <svg class="svg-deco" style="bottom:28px;right:20px;width:52px;transform:rotate(8deg);opacity:0.24"
+       viewBox="0 0 55 70" fill="none" stroke="#7a1515" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="56" rx="14" ry="10" transform="rotate(-15 16 56)"/>
+    <line x1="28" y1="48" x2="28" y2="8"/>
+    <path d="M28,8 Q50,18 46,36"/>
+  </svg>
+
+  <h1 class="done-title">That's a Wrap!</h1>
+  <p class="done-msg" style="margin-top:8px;">Thanks for playing —<br>here's to Jake &amp; Ellese!</p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyC764ibO9kNbgCQwzDun1v_98_F8okcUWg",
+    authDomain: "bachelorette-game2026.firebaseapp.com",
+    databaseURL: "https://bachelorette-game2026-default-rtdb.firebaseio.com",
+    projectId: "bachelorette-game2026",
+    storageBucket: "bachelorette-game2026.firebasestorage.app",
+    messagingSenderId: "152027602257",
+    appId: "1:152027602257:web:3ac4848dbc16725e414770"
+  });
+  const db = firebase.database();
+
+  const questions = [
+    "Who made the first move?",
+    "Who said \"I love you\" first?",
+    "What is Ellese's favorite color?",
+    "What is something Ellese is good at?",
+    "What is Jake's most annoying habit?",
+    "Who is more likely to win an argument?",
+    "What is something Ellese does that drives you crazy (in a loving way)?",
+    "What is Ellese's most worn outfit at home?",
+    "Where do you see you and Jake in five years?",
+    "What would Jake say Ellese is not good at?",
+    "What is Ellese's weirdest habit?",
+    "What is Jake's favorite memory with Ellese?",
+    "What is Jake's go-to apology?",
+    "What are you most excited for in married life?",
+  ];
+
+  let myVotes = JSON.parse(sessionStorage.getItem('myVotes') || '{}');
+  let currentQIndex = 0;
+
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function renderTally(el, votes) {
+    const r = (votes && votes.match) || 0;
+    const w = (votes && votes.nomatch) || 0;
+    const total = r + w;
+    const rPct = total ? Math.round((r / total) * 100) : 0;
+    const wPct = total ? 100 - rPct : 0;
+    el.innerHTML = `
+      <div class="tally-row">
+        <div class="tally-lbl">Match</div>
+        <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
+        <div class="tally-pct">${rPct}%</div>
       </div>
-    </div>
-    <div id="vote-result" style="display:none; width:100%;">
-      <div class="voted-badge">
-        <div class="vb-label">You voted</div>
-        <div class="vb-choice" id="vb-choice-text"></div>
+      <div class="tally-row">
+        <div class="tally-lbl">No Match</div>
+        <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
+        <div class="tally-pct">${wPct}%</div>
       </div>
-      <div class="tally-wrap" id="tally-voted" style="margin:0 auto;"></div>
-    </div>
-  </div>
+      <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
+  }
 
-  <!-- WATCHING JAKE (no verdict yet) -->
-  <div id="s-reveal" class="screen">
-    <!-- guitar — left side -->
-    <svg class="svg-deco" style="left:18px;top:50%;transform:translateY(-55%) rotate(-8deg);width:55px;opacity:0.10" fill="black"><use href="#ico-guitar"/></svg>
-    <!-- hat — lower right -->
-    <svg class="svg-deco" style="bottom:24px;right:18px;width:120px;transform:rotate(10deg);opacity:0.10" fill="black"><use href="#ico-hat"/></svg>
-    <div class="q-label" id="g-reveal-num">Question 1</div>
-    <div class="reveal-headline">Jake's answering now!</div>
-    <div class="reveal-sub">Watch the host screen</div>
-    <div class="tally-wrap" id="tally-reveal" style="margin:0 auto;"></div>
-  </div>
+  function castVote(choice) {
+    if (myVotes[currentQIndex]) return;
+    myVotes[currentQIndex] = choice;
+    sessionStorage.setItem('myVotes', JSON.stringify(myVotes));
+    const field = choice === 'match' ? 'match' : 'nomatch';
+    db.ref('game/votes/' + field).transaction(v => (v || 0) + 1);
+    document.getElementById('vote-input').style.display = 'none';
+    document.getElementById('vb-choice-text').textContent = choice === 'match' ? 'Match' : 'No Match';
+    document.getElementById('vote-result').style.display = 'block';
+  }
 
-  <!-- VERDICT RESULT -->
-  <div id="s-verdict" class="screen">
-    <!-- flute — upper right, large -->
-    <svg class="svg-deco" style="top:20px;right:20px;width:60px;transform:rotate(6deg);opacity:0.11" fill="black"><use href="#ico-flute"/></svg>
-    <!-- boot — lower left -->
-    <svg class="svg-deco" style="bottom:24px;left:18px;width:95px;transform:rotate(-10deg);opacity:0.11" fill="black"><use href="#ico-boot"/></svg>
-    <!-- hat — upper left -->
-    <svg class="svg-deco" style="top:28px;left:18px;width:110px;transform:rotate(-12deg);opacity:0.09" fill="black"><use href="#ico-hat"/></svg>
-    <div class="q-label" id="g-verdict-num">Question 1</div>
-    <div id="verdict-win-block" style="display:none;">
-      <div class="verdict-win">You're Right!</div>
-      <div class="verdict-sub">Great minds think alike</div>
-    </div>
-    <div id="verdict-lose-block" style="display:none;">
-      <div class="verdict-lose">Drink Bitch!</div>
-      <div class="verdict-sub">Wrong answer — bottoms up</div>
-    </div>
-    <div id="verdict-novote-block" style="display:none;">
-      <div class="verdict-lose" style="font-size:clamp(1.6rem,6vw,2.4rem);">Watch &amp; Learn</div>
-      <div class="verdict-sub">Next time vote faster!</div>
-    </div>
-    <div class="tally-wrap" id="tally-verdict" style="margin:0 auto;"></div>
-  </div>
+  db.ref('game').on('value', snap => {
+    const g = snap.val();
+    if (!g || g.state === 'waiting' || !g.state) { show('s-wait'); return; }
 
-  <!-- DONE -->
-  <div id="s-done" class="screen">
-    <!-- hat — upper left -->
-    <svg class="svg-deco" style="top:28px;left:18px;width:140px;transform:rotate(-12deg)" fill="black"><use href="#ico-hat"/></svg>
-    <!-- guitar — upper right -->
-    <svg class="svg-deco" style="top:18px;right:18px;width:60px;transform:rotate(14deg)" fill="black"><use href="#ico-guitar"/></svg>
-    <!-- boot — lower left -->
-    <svg class="svg-deco" style="bottom:24px;left:18px;width:95px;transform:rotate(-10deg)" fill="black"><use href="#ico-boot"/></svg>
-    <!-- flute — lower right -->
-    <svg class="svg-deco" style="bottom:24px;right:22px;width:46px;transform:rotate(6deg)" fill="black"><use href="#ico-flute"/></svg>
-    <!-- note — center right -->
-    <svg class="svg-deco" style="top:50%;right:18px;width:70px;transform:translateY(-50%) rotate(15deg);opacity:0.09" fill="black"><use href="#ico-note"/></svg>
-    <h1 class="done-title">That's a Wrap!</h1>
-    <p class="done-msg" style="margin-top:8px;">Thanks for playing —<br>here's to Jake &amp; Ellese!</p>
-  </div>
+    const { state, qIndex, votes, verdict } = g;
+    currentQIndex = qIndex || 0;
+    const qNum = currentQIndex + 1;
 
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-  <script>
-    firebase.initializeApp({
-      apiKey: "AIzaSyC764ibO9kNbgCQwzDun1v_98_F8okcUWg",
-      authDomain: "bachelorette-game2026.firebaseapp.com",
-      databaseURL: "https://bachelorette-game2026-default-rtdb.firebaseio.com",
-      projectId: "bachelorette-game2026",
-      storageBucket: "bachelorette-game2026.firebasestorage.app",
-      messagingSenderId: "152027602257",
-      appId: "1:152027602257:web:3ac4848dbc16725e414770"
-    });
-    const db = firebase.database();
-
-    const questions = [
-      "Who made the first move?",
-      "Who said \"I love you\" first?",
-      "What is Ellese's favorite color?",
-      "What is something Ellese is good at?",
-      "What is Jake's most annoying habit?",
-      "Who is more likely to win an argument?",
-      "What is something Ellese does that drives you crazy (in a loving way)?",
-      "What is Ellese's most worn outfit at home?",
-      "Where do you see you and Jake in five years?",
-      "What would Jake say Ellese is not good at?",
-      "What is Ellese's weirdest habit?",
-      "What is Jake's favorite memory with Ellese?",
-      "What is Jake's go-to apology?",
-      "What are you most excited for in married life?",
-    ];
-
-    let myVotes = JSON.parse(sessionStorage.getItem('myVotes') || '{}');
-    let currentQIndex = 0;
-
-    function show(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function renderTally(el, votes) {
-      const r = (votes && votes.match) || 0;
-      const w = (votes && votes.nomatch) || 0;
-      const total = r + w;
-      const rPct = total ? Math.round((r / total) * 100) : 0;
-      const wPct = total ? 100 - rPct : 0;
-      el.innerHTML = `
-        <div class="tally-row">
-          <div class="tally-lbl">Match</div>
-          <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
-          <div class="tally-pct">${rPct}%</div>
-        </div>
-        <div class="tally-row">
-          <div class="tally-lbl">No Match</div>
-          <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
-          <div class="tally-pct">${wPct}%</div>
-        </div>
-        <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
-    }
-
-    function castVote(choice) {
-      if (myVotes[currentQIndex]) return;
-      myVotes[currentQIndex] = choice;
-      sessionStorage.setItem('myVotes', JSON.stringify(myVotes));
-      const field = choice === 'match' ? 'match' : 'nomatch';
-      db.ref('game/votes/' + field).transaction(v => (v || 0) + 1);
-      document.getElementById('vote-input').style.display = 'none';
-      document.getElementById('vb-choice-text').textContent = choice === 'match' ? 'Match' : 'No Match';
-      document.getElementById('vote-result').style.display = 'block';
-    }
-
-    db.ref('game').on('value', snap => {
-      const g = snap.val();
-      if (!g || g.state === 'waiting' || !g.state) { show('s-wait'); return; }
-
-      const { state, qIndex, votes, verdict } = g;
-      currentQIndex = qIndex || 0;
-      const qNum = currentQIndex + 1;
-
-      if (state === 'question') {
-        document.getElementById('g-q-num').textContent = `Question ${qNum}`;
-        document.getElementById('g-q-text').textContent = questions[currentQIndex];
-        const voted = myVotes[currentQIndex];
-        document.getElementById('vote-input').style.display  = voted ? 'none'  : 'block';
-        document.getElementById('vote-result').style.display = voted ? 'block' : 'none';
-        if (voted) {
-          document.getElementById('vb-choice-text').textContent = voted === 'match' ? 'Match' : 'No Match';
-          renderTally(document.getElementById('tally-voted'), votes);
-        }
-        show('s-vote');
-        return;
+    if (state === 'question') {
+      document.getElementById('g-q-num').textContent = `Question ${qNum}`;
+      document.getElementById('g-q-text').textContent = questions[currentQIndex];
+      const voted = myVotes[currentQIndex];
+      document.getElementById('vote-input').style.display  = voted ? 'none'  : 'block';
+      document.getElementById('vote-result').style.display = voted ? 'block' : 'none';
+      if (voted) {
+        document.getElementById('vb-choice-text').textContent = voted === 'match' ? 'Match' : 'No Match';
+        renderTally(document.getElementById('tally-voted'), votes);
       }
+      show('s-vote');
+      return;
+    }
 
-      if (state === 'reveal') {
-        if (verdict) {
-          document.getElementById('g-verdict-num').textContent = `Question ${qNum}`;
-          const myVote = myVotes[currentQIndex];
-          document.getElementById('verdict-win-block').style.display   = 'none';
-          document.getElementById('verdict-lose-block').style.display  = 'none';
-          document.getElementById('verdict-novote-block').style.display = 'none';
-          if (!myVote) {
-            document.getElementById('verdict-novote-block').style.display = 'block';
-          } else if (myVote === verdict) {
-            document.getElementById('verdict-win-block').style.display = 'block';
-          } else {
-            document.getElementById('verdict-lose-block').style.display = 'block';
-          }
-          renderTally(document.getElementById('tally-verdict'), votes);
-          show('s-verdict');
+    if (state === 'reveal') {
+      if (verdict) {
+        document.getElementById('g-verdict-num').textContent = `Question ${qNum}`;
+        const myVote = myVotes[currentQIndex];
+        document.getElementById('verdict-win-block').style.display   = 'none';
+        document.getElementById('verdict-lose-block').style.display  = 'none';
+        document.getElementById('verdict-novote-block').style.display = 'none';
+        if (!myVote) {
+          document.getElementById('verdict-novote-block').style.display = 'block';
+        } else if (myVote === verdict) {
+          document.getElementById('verdict-win-block').style.display = 'block';
         } else {
-          document.getElementById('g-reveal-num').textContent = `Question ${qNum}`;
-          renderTally(document.getElementById('tally-reveal'), votes);
-          show('s-reveal');
+          document.getElementById('verdict-lose-block').style.display = 'block';
         }
-        return;
+        renderTally(document.getElementById('tally-verdict'), votes);
+        show('s-verdict');
+      } else {
+        document.getElementById('g-reveal-num').textContent = `Question ${qNum}`;
+        renderTally(document.getElementById('tally-reveal'), votes);
+        show('s-reveal');
       }
+      return;
+    }
 
-      if (state === 'done') { show('s-done'); }
-    });
-  </script>
+    if (state === 'done') { show('s-done'); }
+  });
+</script>
 </body>
 </html>
