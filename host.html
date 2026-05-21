@@ -169,6 +169,7 @@
       <div id="qr-code"></div>
     </div>
     <button class="btn-red" onclick="hostStart()">Start Game</button>
+    <button onclick="hostReset()" style="background:none;border:none;color:var(--red-mid);font-family:Arial,sans-serif;font-size:0.8rem;text-decoration:underline;cursor:pointer;margin-top:-8px;">Reset / Clear old game state</button>
   </div>
 
   <!-- QUESTION -->
@@ -288,6 +289,7 @@
     }
 
     function hostStart() {
+      gameStarted = true;
       db.ref('game').set({ state: 'question', qIndex: 0, votes: { match: 0, nomatch: 0 } });
     }
 
@@ -320,9 +322,12 @@
       show('h-lobby');
     }
 
+    let gameStarted = false;
+
     db.ref('game').on('value', snap => {
       const g = snap.val();
-      if (!g || g.state === 'waiting' || !g.state) return;
+      if (!g || g.state === 'waiting' || !g.state) { gameStarted = false; return; }
+      if (!gameStarted) return; // don't auto-jump; host must click Start Game
 
       const { state, qIndex, votes } = g;
       currentQIndex = qIndex || 0;
