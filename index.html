@@ -42,24 +42,13 @@
     }
     .screen.active { display: flex; }
 
-    .wait-title {
-      font-size: clamp(2rem, 7vw, 3rem);
-      color: var(--red);
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-    .wait-sub {
-      color: var(--red-mid);
-      font-style: italic;
-      margin-bottom: 40px;
-    }
-    .wait-msg { color: #777; font-size: 1rem; line-height: 1.7; }
+    /* WAITING */
+    .wait-title { font-size: clamp(2rem, 7vw, 3rem); color: var(--red); font-weight: bold; margin-bottom: 6px; }
+    .wait-sub   { color: var(--red-mid); font-style: italic; margin-bottom: 40px; }
+    .wait-msg   { color: #777; font-size: 1rem; line-height: 1.7; }
     .pulse {
-      display: inline-block;
-      width: 10px; height: 10px;
-      background: var(--red);
-      border-radius: 50%;
-      margin-right: 8px;
+      display: inline-block; width: 10px; height: 10px;
+      background: var(--red); border-radius: 50%; margin-right: 8px;
       animation: pulse 1.4s ease-in-out infinite;
     }
     @keyframes pulse {
@@ -67,154 +56,87 @@
       50%       { opacity: 0.4; transform: scale(0.7); }
     }
 
+    /* VOTE */
     .q-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 14px;
+      font-family: Arial, sans-serif; font-size: 0.75rem;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 14px;
     }
     .q-text-guest {
-      font-size: clamp(1.4rem, 5vw, 2.4rem);
-      color: var(--text-dark);
-      font-weight: bold;
-      line-height: 1.3;
-      margin-bottom: 36px;
+      font-size: clamp(1.4rem, 5vw, 2.4rem); color: var(--text-dark);
+      font-weight: bold; line-height: 1.3; margin-bottom: 36px;
     }
     .vote-prompt {
-      font-family: Arial, sans-serif;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #999;
-      margin-bottom: 14px;
+      font-family: Arial, sans-serif; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 14px;
     }
-    .vote-btns-guest {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 300px;
-    }
-    .btn-right {
-      background: var(--red);
-      color: white;
-      border: none;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      font-size: 1.05rem;
-      letter-spacing: 1px;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+    .vote-btns-guest { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 300px; }
+    .btn-match {
+      background: var(--red); color: white; border: none; padding: 20px;
+      font-family: Arial, sans-serif; font-weight: bold; font-size: 1.05rem;
+      letter-spacing: 1px; cursor: pointer; -webkit-tap-highlight-color: transparent;
       transition: background 0.15s;
     }
-    .btn-right:active { background: var(--red-mid); }
-    .btn-wrong {
-      background: white;
-      color: var(--red);
-      border: 2px solid var(--red);
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      font-size: 1.05rem;
-      letter-spacing: 1px;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+    .btn-match:active { background: var(--red-mid); }
+    .btn-nomatch {
+      background: white; color: var(--red); border: 2px solid var(--red); padding: 20px;
+      font-family: Arial, sans-serif; font-weight: bold; font-size: 1.05rem;
+      letter-spacing: 1px; cursor: pointer; -webkit-tap-highlight-color: transparent;
       transition: opacity 0.15s;
     }
-    .btn-wrong:active { opacity: 0.7; }
+    .btn-nomatch:active { opacity: 0.7; }
 
-    .voted-badge {
-      background: white;
-      border-radius: 8px;
-      padding: 18px 28px;
-      margin-bottom: 28px;
-      box-shadow: 0 2px 12px rgba(122,21,21,0.1);
-    }
-    .vb-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: #aaa;
-      margin-bottom: 4px;
-    }
+    /* VOTED BADGE */
+    .voted-badge { background: white; border-radius: 8px; padding: 18px 28px; margin-bottom: 28px; box-shadow: 0 2px 12px rgba(122,21,21,0.1); }
+    .vb-label { font-family: Arial, sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: #aaa; margin-bottom: 4px; }
     .vb-choice { font-size: 1.2rem; font-weight: bold; color: var(--red); }
 
+    /* TALLY */
     .tally-wrap { width: 100%; max-width: 300px; }
-    .tally-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .tally-lbl {
-      font-family: Arial, sans-serif;
-      font-size: 0.78rem;
-      font-weight: bold;
-      color: var(--text-dark);
-      width: 82px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-    .tally-bg {
-      flex: 1;
-      background: rgba(122,21,21,0.12);
-      border-radius: 99px;
-      height: 10px;
-      overflow: hidden;
-    }
-    .tally-fill {
-      height: 100%;
-      background: var(--red);
-      border-radius: 99px;
-      transition: width 0.4s ease;
-    }
-    .tally-pct {
-      font-family: Arial, sans-serif;
-      font-size: 0.78rem;
-      color: var(--red);
-      font-weight: bold;
-      width: 34px;
-    }
-    .tally-total {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      font-size: 0.72rem;
-      color: #aaa;
-      margin-top: 6px;
-    }
+    .tally-row  { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .tally-lbl  { font-family: Arial, sans-serif; font-size: 0.78rem; font-weight: bold; color: var(--text-dark); width: 82px; text-align: right; flex-shrink: 0; }
+    .tally-bg   { flex: 1; background: rgba(122,21,21,0.12); border-radius: 99px; height: 10px; overflow: hidden; }
+    .tally-fill { height: 100%; background: var(--red); border-radius: 99px; transition: width 0.4s ease; }
+    .tally-pct  { font-family: Arial, sans-serif; font-size: 0.78rem; color: var(--red); font-weight: bold; width: 34px; }
+    .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #aaa; margin-top: 6px; }
 
-    .reveal-headline {
-      font-size: clamp(1.6rem, 6vw, 2.2rem);
-      color: var(--red);
-      font-weight: bold;
-      margin-bottom: 8px;
+    /* VERDICT RESULT */
+    .verdict-win {
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1;
     }
+    .verdict-lose {
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1;
+    }
+    .verdict-sub { color: #777; font-style: italic; margin-bottom: 32px; font-size: 0.95rem; }
+
+    /* REVEAL (waiting) */
+    .reveal-headline { font-size: clamp(1.6rem, 6vw, 2.2rem); color: var(--red); font-weight: bold; margin-bottom: 8px; }
     .reveal-sub { color: #777; font-style: italic; margin-bottom: 36px; font-size: 0.95rem; }
 
-    .done-title {
-      font-size: clamp(2rem, 7vw, 3rem);
-      color: var(--red);
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .done-msg { color: #777; font-style: italic; line-height: 1.7; }
+    /* DONE */
+    .done-title { font-size: clamp(2rem, 7vw, 3rem); color: var(--red); font-weight: bold; margin-bottom: 8px; }
+    .done-msg   { color: #777; font-style: italic; line-height: 1.7; }
   </style>
 </head>
 <body>
 
+  <!-- WAITING -->
   <div id="s-wait" class="screen active">
     <h1 class="wait-title">He Said She Said</h1>
     <p class="wait-sub">Jake &amp; Ellese</p>
     <p class="wait-msg"><span class="pulse"></span>Waiting for the host to start…</p>
   </div>
 
+  <!-- VOTING -->
   <div id="s-vote" class="screen">
     <div class="q-label" id="g-q-num">Question 1</div>
     <div class="q-text-guest" id="g-q-text"></div>
     <div id="vote-input">
-      <div class="vote-prompt">What do you think?</div>
+      <div class="vote-prompt">Will Ellese's answer match Jake's?</div>
       <div class="vote-btns-guest">
-        <button class="btn-right" onclick="castVote('right')">She's Right</button>
-        <button class="btn-wrong" onclick="castVote('wrong')">She's Wrong</button>
+        <button class="btn-match"   onclick="castVote('match')">Match</button>
+        <button class="btn-nomatch" onclick="castVote('no-match')">No Match</button>
       </div>
     </div>
     <div id="vote-result" style="display:none; width:100%;">
@@ -226,6 +148,7 @@
     </div>
   </div>
 
+  <!-- WATCHING JAKE (no verdict yet) -->
   <div id="s-reveal" class="screen">
     <div class="q-label" id="g-reveal-num">Question 1</div>
     <div class="reveal-headline">Jake's answering now!</div>
@@ -233,6 +156,25 @@
     <div class="tally-wrap" id="tally-reveal" style="margin:0 auto;"></div>
   </div>
 
+  <!-- VERDICT RESULT -->
+  <div id="s-verdict" class="screen">
+    <div class="q-label" id="g-verdict-num">Question 1</div>
+    <div id="verdict-win-block" style="display:none;">
+      <div class="verdict-win">You're Right!</div>
+      <div class="verdict-sub">Great minds think alike</div>
+    </div>
+    <div id="verdict-lose-block" style="display:none;">
+      <div class="verdict-lose">Drink Bitch!</div>
+      <div class="verdict-sub">Wrong answer — bottoms up</div>
+    </div>
+    <div id="verdict-novote-block" style="display:none;">
+      <div class="verdict-lose" style="font-size:clamp(1.6rem,6vw,2.4rem);">Watch &amp; Learn</div>
+      <div class="verdict-sub">Next time vote faster!</div>
+    </div>
+    <div class="tally-wrap" id="tally-verdict" style="margin:0 auto;"></div>
+  </div>
+
+  <!-- DONE -->
   <div id="s-done" class="screen">
     <h1 class="done-title">That's a Wrap!</h1>
     <p class="done-msg">Thanks for playing —<br>here's to Jake &amp; Ellese!</p>
@@ -278,19 +220,19 @@
     }
 
     function renderTally(el, votes) {
-      const r = (votes && votes.right) || 0;
-      const w = (votes && votes.wrong) || 0;
+      const r = (votes && votes.match) || 0;
+      const w = (votes && votes.nomatch) || 0;
       const total = r + w;
       const rPct = total ? Math.round((r / total) * 100) : 0;
       const wPct = total ? 100 - rPct : 0;
       el.innerHTML = `
         <div class="tally-row">
-          <div class="tally-lbl">She's Right</div>
+          <div class="tally-lbl">Match</div>
           <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
           <div class="tally-pct">${rPct}%</div>
         </div>
         <div class="tally-row">
-          <div class="tally-lbl">She's Wrong</div>
+          <div class="tally-lbl">No Match</div>
           <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
           <div class="tally-pct">${wPct}%</div>
         </div>
@@ -301,11 +243,10 @@
       if (myVotes[currentQIndex]) return;
       myVotes[currentQIndex] = choice;
       sessionStorage.setItem('myVotes', JSON.stringify(myVotes));
-      db.ref('game/votes/' + (choice === 'right' ? 'right' : 'wrong'))
-        .transaction(v => (v || 0) + 1);
+      const field = choice === 'match' ? 'match' : 'nomatch';
+      db.ref('game/votes/' + field).transaction(v => (v || 0) + 1);
       document.getElementById('vote-input').style.display = 'none';
-      document.getElementById('vb-choice-text').textContent =
-        choice === 'right' ? "She's Right" : "She's Wrong";
+      document.getElementById('vb-choice-text').textContent = choice === 'match' ? 'Match' : 'No Match';
       document.getElementById('vote-result').style.display = 'block';
     }
 
@@ -313,7 +254,7 @@
       const g = snap.val();
       if (!g || g.state === 'waiting' || !g.state) { show('s-wait'); return; }
 
-      const { state, qIndex, votes } = g;
+      const { state, qIndex, votes, verdict } = g;
       currentQIndex = qIndex || 0;
       const qNum = currentQIndex + 1;
 
@@ -324,8 +265,7 @@
         document.getElementById('vote-input').style.display  = voted ? 'none'  : 'block';
         document.getElementById('vote-result').style.display = voted ? 'block' : 'none';
         if (voted) {
-          document.getElementById('vb-choice-text').textContent =
-            voted === 'right' ? "She's Right" : "She's Wrong";
+          document.getElementById('vb-choice-text').textContent = voted === 'match' ? 'Match' : 'No Match';
           renderTally(document.getElementById('tally-voted'), votes);
         }
         show('s-vote');
@@ -333,9 +273,27 @@
       }
 
       if (state === 'reveal') {
-        document.getElementById('g-reveal-num').textContent = `Question ${qNum}`;
-        renderTally(document.getElementById('tally-reveal'), votes);
-        show('s-reveal');
+        if (verdict) {
+          // Show personalized verdict result
+          document.getElementById('g-verdict-num').textContent = `Question ${qNum}`;
+          const myVote = myVotes[currentQIndex];
+          document.getElementById('verdict-win-block').style.display   = 'none';
+          document.getElementById('verdict-lose-block').style.display  = 'none';
+          document.getElementById('verdict-novote-block').style.display = 'none';
+          if (!myVote) {
+            document.getElementById('verdict-novote-block').style.display = 'block';
+          } else if (myVote === verdict) {
+            document.getElementById('verdict-win-block').style.display = 'block';
+          } else {
+            document.getElementById('verdict-lose-block').style.display = 'block';
+          }
+          renderTally(document.getElementById('tally-verdict'), votes);
+          show('s-verdict');
+        } else {
+          document.getElementById('g-reveal-num').textContent = `Question ${qNum}`;
+          renderTally(document.getElementById('tally-reveal'), votes);
+          show('s-reveal');
+        }
         return;
       }
 

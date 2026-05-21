@@ -20,245 +20,86 @@
     .screen.active { display: flex; }
 
     .sidebar-layout {
-      position: relative;
-      background: var(--pink-bg);
-      justify-content: space-between;
+      position: relative; background: var(--pink-bg); justify-content: space-between;
     }
-    .sidebar-layout::before,
-    .sidebar-layout::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      width: var(--sidebar-w);
-      height: 100vh;
-      background: var(--red);
-      z-index: 20;
+    .sidebar-layout::before, .sidebar-layout::after {
+      content: ''; position: fixed; top: 0; width: var(--sidebar-w); height: 100vh;
+      background: var(--red); z-index: 20;
     }
     .sidebar-layout::before { left: 0; }
     .sidebar-layout::after  { right: 0; }
 
-    /* ── LOBBY ── */
-    #h-lobby {
-      padding: 48px calc(var(--sidebar-w) + 28px);
-      justify-content: center;
-      gap: 24px;
-      text-align: center;
-    }
-    .lobby-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: var(--red);
-      font-weight: bold;
-    }
+    /* LOBBY */
+    #h-lobby { padding: 48px calc(var(--sidebar-w) + 28px); justify-content: center; gap: 24px; text-align: center; }
+    .lobby-title { font-size: clamp(2rem, 5vw, 3.5rem); color: var(--red); font-weight: bold; }
     .lobby-sub { color: var(--red-mid); font-style: italic; }
     .join-box {
-      background: white;
-      border-radius: 8px;
-      padding: 24px 28px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 4px 20px rgba(122,21,21,0.12);
+      background: white; border-radius: 8px; padding: 24px 28px;
+      max-width: 420px; width: 100%; box-shadow: 0 4px 20px rgba(122,21,21,0.12);
     }
     .join-box h3 {
-      color: var(--red);
-      font-family: Arial, sans-serif;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 12px;
+      color: var(--red); font-family: Arial, sans-serif; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px;
     }
     .join-url {
-      font-family: monospace;
-      font-size: 0.88rem;
-      color: var(--text-dark);
-      background: #f9f0f1;
-      padding: 10px 14px;
-      border-radius: 4px;
-      margin-bottom: 16px;
-      word-break: break-all;
+      font-family: monospace; font-size: 0.88rem; color: var(--text-dark);
+      background: #f9f0f1; padding: 10px 14px; border-radius: 4px;
+      margin-bottom: 16px; word-break: break-all;
     }
     #qr-code { display: flex; justify-content: center; }
 
     .btn-red {
-      background: var(--red);
-      color: white;
-      border: none;
-      padding: 18px 56px;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.15s;
-      -webkit-tap-highlight-color: transparent;
+      background: var(--red); color: white; border: none; padding: 18px 56px;
+      font-family: Arial, sans-serif; font-weight: bold; font-size: 1rem;
+      letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+      transition: background 0.15s; -webkit-tap-highlight-color: transparent;
     }
     .btn-red:hover { background: var(--red-mid); }
 
-    /* ── QUESTION ── */
-    #h-question {
-      padding: 0 var(--sidebar-w);
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-    }
+    /* QUESTION */
+    #h-question { padding: 0 var(--sidebar-w); flex-direction: column; align-items: center; justify-content: space-between; }
     .h-q-body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      padding: 40px 32px 24px;
-      gap: 20px;
-      width: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      flex: 1; padding: 40px 32px 24px; gap: 20px; width: 100%;
     }
     .h-q-circle {
-      width: 64px; height: 64px;
-      background: var(--red);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.8rem;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      flex-shrink: 0;
+      width: 64px; height: 64px; background: var(--red); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.8rem; font-weight: bold; font-family: Arial, sans-serif; flex-shrink: 0;
     }
-    .h-q-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-    .h-q-text {
-      font-size: clamp(1.5rem, 4vw, 2.8rem);
-      color: var(--text-dark);
-      text-align: center;
-      font-weight: bold;
-      line-height: 1.25;
-      max-width: 720px;
-    }
+    .h-q-label { font-family: Arial, sans-serif; font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; color: var(--red); }
+    .h-q-text { font-size: clamp(1.5rem, 4vw, 2.8rem); color: var(--text-dark); text-align: center; font-weight: bold; line-height: 1.25; max-width: 720px; }
 
-    /* tally box */
-    .tally-box {
-      background: white;
-      border-radius: 8px;
-      padding: 20px 28px;
-      max-width: 480px;
-      width: 100%;
-      box-shadow: 0 2px 12px rgba(122,21,21,0.1);
-    }
-    .tally-box-title {
-      font-family: Arial, sans-serif;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: #aaa;
-      margin-bottom: 14px;
-      text-align: center;
-    }
-    .tally-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-    .tally-lbl {
-      font-family: Arial, sans-serif;
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: var(--text-dark);
-      width: 90px;
-      flex-shrink: 0;
-    }
-    .tally-bg {
-      flex: 1;
-      background: rgba(122,21,21,0.1);
-      border-radius: 99px;
-      height: 12px;
-      overflow: hidden;
-    }
-    .tally-fill {
-      height: 100%;
-      background: var(--red);
-      border-radius: 99px;
-      transition: width 0.4s ease;
-    }
-    .tally-count {
-      font-family: Arial, sans-serif;
-      font-size: 0.85rem;
-      color: var(--red);
-      font-weight: bold;
-      width: 32px;
-      text-align: right;
-    }
-    .tally-total {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      font-size: 0.72rem;
-      color: #bbb;
-      margin-top: 4px;
-    }
+    .tally-box { background: white; border-radius: 8px; padding: 20px 28px; max-width: 480px; width: 100%; box-shadow: 0 2px 12px rgba(122,21,21,0.1); }
+    .tally-box-title { font-family: Arial, sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: #aaa; margin-bottom: 14px; text-align: center; }
+    .tally-row  { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .tally-lbl  { font-family: Arial, sans-serif; font-size: 0.85rem; font-weight: bold; color: var(--text-dark); width: 90px; flex-shrink: 0; }
+    .tally-bg   { flex: 1; background: rgba(122,21,21,0.1); border-radius: 99px; height: 12px; overflow: hidden; }
+    .tally-fill { height: 100%; background: var(--red); border-radius: 99px; transition: width 0.4s ease; }
+    .tally-count { font-family: Arial, sans-serif; font-size: 0.85rem; color: var(--red); font-weight: bold; width: 32px; text-align: right; }
+    .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #bbb; margin-top: 4px; }
 
     .h-reveal-btn {
-      width: 100%;
-      background: var(--red);
-      color: white;
-      border: none;
-      padding: 22px 32px;
-      font-size: 0.9rem;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      letter-spacing: 1px;
-      cursor: pointer;
-      text-align: center;
-      transition: background 0.15s;
-      flex-shrink: 0;
+      width: 100%; background: var(--red); color: white; border: none; padding: 22px 32px;
+      font-size: 0.9rem; font-family: Arial, sans-serif; font-weight: bold; letter-spacing: 1px;
+      cursor: pointer; text-align: center; transition: background 0.15s; flex-shrink: 0;
     }
     .h-reveal-btn:hover { background: var(--red-mid); }
 
-    /* ── REVEAL ── */
+    /* REVEAL */
     #h-reveal {
-      background: var(--red);
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 16px 24px;
-      overflow-y: auto;
-      gap: 16px;
+      background: var(--red); flex-direction: column; align-items: center;
+      justify-content: space-between; padding: 28px 16px 24px; overflow-y: auto; gap: 14px;
     }
-    .h-reveal-title {
-      color: white;
-      font-size: clamp(1.2rem, 4vw, 1.8rem);
-      font-weight: bold;
-      text-align: center;
-      flex-shrink: 0;
-    }
-    .video-frame-outer {
-      background: var(--pink-frame);
-      padding: 8px;
-      width: 100%;
-      max-width: min(320px, calc((100vh - 220px) / 1.7778));
-      flex-shrink: 0;
-    }
-    .video-frame-inner {
-      position: relative;
-      width: 100%;
-      padding-bottom: 177.78%;
-      background: #000;
-      overflow: hidden;
-    }
-    .video-frame-inner iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
+    .h-reveal-title { color: white; font-size: clamp(1.2rem, 4vw, 1.8rem); font-weight: bold; text-align: center; flex-shrink: 0; }
 
-    /* tally on red background */
+    .video-frame-outer { background: var(--pink-frame); padding: 8px; width: 100%; max-width: min(300px, calc((100vh - 260px) / 1.7778)); flex-shrink: 0; }
+    .video-frame-inner { position: relative; width: 100%; padding-bottom: 177.78%; background: #000; overflow: hidden; }
+    .video-frame-inner iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
     .tally-box-dark {
-      background: rgba(255,255,255,0.12);
-      border-radius: 8px;
-      padding: 16px 20px;
-      width: 100%;
-      max-width: 320px;
-      flex-shrink: 0;
+      background: rgba(255,255,255,0.12); border-radius: 8px; padding: 14px 18px;
+      width: 100%; max-width: 320px; flex-shrink: 0;
     }
     .tally-box-dark .tally-lbl   { color: white; }
     .tally-box-dark .tally-bg    { background: rgba(255,255,255,0.2); }
@@ -267,53 +108,47 @@
     .tally-box-dark .tally-total { color: rgba(255,255,255,0.5); }
     .tally-box-dark .tally-box-title { color: rgba(255,255,255,0.6); }
 
+    /* VERDICT BUTTONS */
+    .verdict-section {
+      width: 100%; max-width: 320px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .verdict-label {
+      font-family: Arial, sans-serif; font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 3px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 2px;
+    }
+    .verdict-btns { display: flex; gap: 10px; }
+    .btn-verdict-match {
+      flex: 1; background: white; color: var(--red); border: none;
+      padding: 14px 10px; font-family: Arial, sans-serif; font-weight: bold;
+      font-size: 0.9rem; letter-spacing: 0.5px; cursor: pointer;
+      transition: opacity 0.15s; -webkit-tap-highlight-color: transparent;
+    }
+    .btn-verdict-match:hover { opacity: 0.88; }
+    .btn-verdict-match.selected { outline: 3px solid white; }
+
+    .btn-verdict-nomatch {
+      flex: 1; background: rgba(255,255,255,0.15); color: white;
+      border: 1px solid rgba(255,255,255,0.4); padding: 14px 10px;
+      font-family: Arial, sans-serif; font-weight: bold; font-size: 0.9rem;
+      letter-spacing: 0.5px; cursor: pointer;
+      transition: opacity 0.15s; -webkit-tap-highlight-color: transparent;
+    }
+    .btn-verdict-nomatch:hover { opacity: 0.88; }
+    .btn-verdict-nomatch.selected { outline: 3px solid white; }
+
     .btn-next-host {
-      width: 100%;
-      max-width: 320px;
-      background: white;
-      color: var(--red);
-      border: none;
-      padding: 16px 32px;
-      font-size: 1rem;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: opacity 0.15s;
-      flex-shrink: 0;
+      width: 100%; max-width: 320px; background: white; color: var(--red); border: none;
+      padding: 16px 32px; font-size: 1rem; font-family: Arial, sans-serif; font-weight: bold;
+      letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; flex-shrink: 0;
     }
     .btn-next-host:hover { opacity: 0.88; }
 
-    /* ── FINAL ── */
-    #h-final {
-      padding: 56px calc(var(--sidebar-w) + 28px);
-      justify-content: center;
-      gap: 0;
-      text-align: center;
-    }
-    .final-title {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      color: var(--red);
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-    .final-names {
-      font-family: Arial, sans-serif;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--red-mid);
-      margin-bottom: 36px;
-    }
-    .final-msg {
-      font-size: 1.1rem;
-      color: #555;
-      max-width: 420px;
-      line-height: 1.75;
-      margin-bottom: 44px;
-      font-style: italic;
-    }
+    /* FINAL */
+    #h-final { padding: 56px calc(var(--sidebar-w) + 28px); justify-content: center; gap: 0; text-align: center; }
+    .final-title { font-size: clamp(2rem, 6vw, 3.5rem); color: var(--red); font-weight: bold; margin-bottom: 4px; }
+    .final-names { font-family: Arial, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red-mid); margin-bottom: 36px; }
+    .final-msg   { font-size: 1.1rem; color: #555; max-width: 420px; line-height: 1.75; margin-bottom: 44px; font-style: italic; }
 
     @media (max-width: 480px) {
       :root { --sidebar-w: 18px; }
@@ -355,16 +190,27 @@
   <!-- REVEAL -->
   <div id="h-reveal" class="screen">
     <div class="h-reveal-title" id="h-reveal-title">Jake's Answer — Q1</div>
+
     <div class="video-frame-outer">
       <div class="video-frame-inner">
         <iframe id="h-video-frame" src="" allowfullscreen
           allow="autoplay; encrypted-media; picture-in-picture"></iframe>
       </div>
     </div>
+
     <div class="tally-box-dark">
-      <div class="tally-box-title">Final Votes</div>
+      <div class="tally-box-title">Votes</div>
       <div id="h-tally-final"></div>
     </div>
+
+    <div class="verdict-section">
+      <div class="verdict-label">Was Ellese right? Pick the verdict</div>
+      <div class="verdict-btns">
+        <button class="btn-verdict-match"   id="vbtn-match"   onclick="hostVerdict('match')">Match</button>
+        <button class="btn-verdict-nomatch" id="vbtn-nomatch" onclick="hostVerdict('no-match')">No Match</button>
+      </div>
+    </div>
+
     <button class="btn-next-host" id="h-next-btn" onclick="hostNext()">Next Question &rarr;</button>
   </div>
 
@@ -422,19 +268,19 @@
     }
 
     function renderTally(el, votes) {
-      const r = (votes && votes.right) || 0;
-      const w = (votes && votes.wrong) || 0;
+      const r = (votes && votes.match) || 0;
+      const w = (votes && votes.nomatch) || 0;
       const total = r + w;
       const rPct = total ? Math.round((r / total) * 100) : 0;
       const wPct = total ? 100 - rPct : 0;
       el.innerHTML = `
         <div class="tally-row">
-          <div class="tally-lbl">She's Right</div>
+          <div class="tally-lbl">Match</div>
           <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
           <div class="tally-count">${r}</div>
         </div>
         <div class="tally-row">
-          <div class="tally-lbl">She's Wrong</div>
+          <div class="tally-lbl">No Match</div>
           <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
           <div class="tally-count">${w}</div>
         </div>
@@ -442,7 +288,7 @@
     }
 
     function hostStart() {
-      db.ref('game').set({ state: 'question', qIndex: 0, votes: { right: 0, wrong: 0 } });
+      db.ref('game').set({ state: 'question', qIndex: 0, votes: { match: 0, nomatch: 0 } });
     }
 
     function hostReveal() {
@@ -451,13 +297,21 @@
         `https://drive.google.com/file/d/${questions[currentQIndex].id}/preview`;
     }
 
+    function hostVerdict(v) {
+      db.ref('game/verdict').set(v);
+      document.getElementById('vbtn-match').classList.toggle('selected', v === 'match');
+      document.getElementById('vbtn-nomatch').classList.toggle('selected', v === 'no-match');
+    }
+
     function hostNext() {
       document.getElementById('h-video-frame').src = '';
+      document.getElementById('vbtn-match').classList.remove('selected');
+      document.getElementById('vbtn-nomatch').classList.remove('selected');
       const next = currentQIndex + 1;
       if (next >= questions.length) {
         db.ref('game/state').set('done');
       } else {
-        db.ref('game').set({ state: 'question', qIndex: next, votes: { right: 0, wrong: 0 } });
+        db.ref('game').set({ state: 'question', qIndex: next, votes: { match: 0, nomatch: 0 } });
       }
     }
 
@@ -497,6 +351,8 @@
     db.ref('game/votes').on('value', snap => {
       const el = document.getElementById('h-tally-live');
       if (el) renderTally(el, snap.val());
+      const el2 = document.getElementById('h-tally-final');
+      if (el2) renderTally(el2, snap.val());
     });
   </script>
 </body>
