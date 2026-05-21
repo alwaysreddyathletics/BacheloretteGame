@@ -79,6 +79,35 @@
     .tally-count { font-family: Arial, sans-serif; font-size: 0.85rem; color: var(--red); font-weight: bold; width: 32px; text-align: right; }
     .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #bbb; margin-top: 4px; }
 
+    /* BACK NAV */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 14px calc(var(--sidebar-w) + 14px);
+      flex-shrink: 0;
+    }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: Arial, sans-serif; font-size: 0.85rem; font-weight: bold;
+      letter-spacing: 1px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px;
+      -webkit-tap-highlight-color: transparent; padding: 8px 0;
+    }
+    .btn-back.dark  { color: var(--red); }
+    .btn-back.light { color: rgba(255,255,255,0.8); }
+    .btn-back:hover { opacity: 0.7; }
+    .btn-home {
+      background: none; border: none; cursor: pointer;
+      font-family: Arial, sans-serif; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      -webkit-tap-highlight-color: transparent; padding: 8px 0;
+    }
+    .btn-home.dark  { color: #aaa; }
+    .btn-home.light { color: rgba(255,255,255,0.5); }
+    .btn-home:hover { opacity: 0.7; }
+
     .h-reveal-btn {
       width: 100%; background: var(--red); color: white; border: none; padding: 22px 32px;
       font-size: 0.9rem; font-family: Arial, sans-serif; font-weight: bold; letter-spacing: 1px;
@@ -165,7 +194,6 @@
     <p class="lobby-sub">Jake &amp; Ellese — Host View</p>
     <div class="join-box">
       <h3>Guests scan to join</h3>
-      <div class="join-url">alwaysreddyathletics.github.io/BacheloretteGame/</div>
       <div id="qr-code"></div>
     </div>
     <button class="btn-red" onclick="hostStart()">Start Game</button>
@@ -174,6 +202,10 @@
 
   <!-- QUESTION -->
   <div id="h-question" class="screen sidebar-layout">
+    <div class="top-nav">
+      <button class="btn-back dark" onclick="hostBackFromQuestion()">&#8592; Back</button>
+      <button class="btn-home dark" onclick="goLobby()">&#8962; QR Code</button>
+    </div>
     <div class="h-q-body">
       <div class="h-q-circle" id="h-q-num">1</div>
       <div class="h-q-label">Question</div>
@@ -190,6 +222,10 @@
 
   <!-- REVEAL -->
   <div id="h-reveal" class="screen">
+    <div class="top-nav" style="padding-left:calc(var(--sidebar-w)+14px);padding-right:calc(var(--sidebar-w)+14px);">
+      <button class="btn-back light" onclick="hostBackFromReveal()">&#8592; Back</button>
+      <button class="btn-home light" onclick="goLobby()">&#8962; QR Code</button>
+    </div>
     <div class="h-reveal-title" id="h-reveal-title">Jake's Answer — Q1</div>
 
     <div class="video-frame-outer">
@@ -286,6 +322,29 @@
           <div class="tally-count">${w}</div>
         </div>
         <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
+    }
+
+    function goLobby() {
+      db.ref('game').set({ state: 'waiting' });
+      gameStarted = false;
+      show('h-lobby');
+    }
+
+    function hostBackFromQuestion() {
+      gameStarted = true;
+      if (currentQIndex === 0) {
+        goLobby();
+      } else {
+        db.ref('game').set({ state: 'question', qIndex: currentQIndex - 1, votes: { match: 0, nomatch: 0 } });
+      }
+    }
+
+    function hostBackFromReveal() {
+      gameStarted = true;
+      document.getElementById('h-video-frame').src = '';
+      document.getElementById('vbtn-match').classList.remove('selected');
+      document.getElementById('vbtn-nomatch').classList.remove('selected');
+      db.ref('game').set({ state: 'question', qIndex: currentQIndex, votes: { match: 0, nomatch: 0 } });
     }
 
     function hostStart() {
