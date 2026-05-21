@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Host — Jake & Ellese</title>
+  <style>
+    :root {
+      --pink-bg: #f7d4d8;
+      --pink-frame: #e8b4bc;
+      --red: #7a1515;
+      --red-mid: #9b1c1c;
+      --text-dark: #2d0808;
+      --sidebar-w: 36px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', serif; min-height: 100vh; overflow-x: hidden; }
+
+    .screen { display: none; min-height: 100vh; width: 100%; flex-direction: column; align-items: center; }
+    .screen.active { display: flex; }
+
+    .sidebar-layout {
+      position: relative;
+      background: var(--pink-bg);
+      justify-content: space-between;
+    }
+    .sidebar-layout::before,
+    .sidebar-layout::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--red);
+      z-index: 20;
+    }
+    .sidebar-layout::before { left: 0; }
+    .sidebar-layout::after  { right: 0; }
+
+    /* ── LOBBY ── */
+    #h-lobby {
+      padding: 48px calc(var(--sidebar-w) + 28px);
+      justify-content: center;
+      gap: 24px;
+      text-align: center;
+    }
+    .lobby-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--red);
+      font-weight: bold;
+    }
+    .lobby-sub { color: var(--red-mid); font-style: italic; }
+    .join-box {
+      background: white;
+      border-radius: 8px;
+      padding: 24px 28px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(122,21,21,0.12);
+    }
+    .join-box h3 {
+      color: var(--red);
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    .join-url {
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      background: #f9f0f1;
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      word-break: break-all;
+    }
+    #qr-code { display: flex; justify-content: center; }
+
+    .btn-red {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 18px 56px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-red:hover { background: var(--red-mid); }
+
+    /* ── QUESTION ── */
+    #h-question {
+      padding: 0 var(--sidebar-w);
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .h-q-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 40px 32px 24px;
+      gap: 20px;
+      width: 100%;
+    }
+    .h-q-circle {
+      width: 64px; height: 64px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      flex-shrink: 0;
+    }
+    .h-q-label {
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .h-q-text {
+      font-size: clamp(1.5rem, 4vw, 2.8rem);
+      color: var(--text-dark);
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.25;
+      max-width: 720px;
+    }
+
+    /* tally box */
+    .tally-box {
+      background: white;
+      border-radius: 8px;
+      padding: 20px 28px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(122,21,21,0.1);
+    }
+    .tally-box-title {
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #aaa;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .tally-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .tally-lbl {
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--text-dark);
+      width: 90px;
+      flex-shrink: 0;
+    }
+    .tally-bg {
+      flex: 1;
+      background: rgba(122,21,21,0.1);
+      border-radius: 99px;
+      height: 12px;
+      overflow: hidden;
+    }
+    .tally-fill {
+      height: 100%;
+      background: var(--red);
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+    .tally-count {
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      color: var(--red);
+      font-weight: bold;
+      width: 32px;
+      text-align: right;
+    }
+    .tally-total {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      color: #bbb;
+      margin-top: 4px;
+    }
+
+    .h-reveal-btn {
+      width: 100%;
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 22px 32px;
+      font-size: 0.9rem;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .h-reveal-btn:hover { background: var(--red-mid); }
+
+    /* ── REVEAL ── */
+    #h-reveal {
+      background: var(--red);
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 16px 24px;
+      overflow-y: auto;
+      gap: 16px;
+    }
+    .h-reveal-title {
+      color: white;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-weight: bold;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .video-frame-outer {
+      background: var(--pink-frame);
+      padding: 8px;
+      width: 100%;
+      max-width: min(320px, calc((100vh - 220px) / 1.7778));
+      flex-shrink: 0;
+    }
+    .video-frame-inner {
+      position: relative;
+      width: 100%;
+      padding-bottom: 177.78%;
+      background: #000;
+      overflow: hidden;
+    }
+    .video-frame-inner iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* tally on red background */
+    .tally-box-dark {
+      background: rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 16px 20px;
+      width: 100%;
+      max-width: 320px;
+      flex-shrink: 0;
+    }
+    .tally-box-dark .tally-lbl   { color: white; }
+    .tally-box-dark .tally-bg    { background: rgba(255,255,255,0.2); }
+    .tally-box-dark .tally-fill  { background: white; }
+    .tally-box-dark .tally-count { color: white; }
+    .tally-box-dark .tally-total { color: rgba(255,255,255,0.5); }
+    .tally-box-dark .tally-box-title { color: rgba(255,255,255,0.6); }
+
+    .btn-next-host {
+      width: 100%;
+      max-width: 320px;
+      background: white;
+      color: var(--red);
+      border: none;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-next-host:hover { opacity: 0.88; }
+
+    /* ── FINAL ── */
+    #h-final {
+      padding: 56px calc(var(--sidebar-w) + 28px);
+      justify-content: center;
+      gap: 0;
+      text-align: center;
+    }
+    .final-title {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: var(--red);
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .final-names {
+      font-family: Arial, sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--red-mid);
+      margin-bottom: 36px;
+    }
+    .final-msg {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 420px;
+      line-height: 1.75;
+      margin-bottom: 44px;
+      font-style: italic;
+    }
+
+    @media (max-width: 480px) {
+      :root { --sidebar-w: 18px; }
+      #h-lobby, #h-final { padding: 40px calc(var(--sidebar-w) + 16px); }
+      .h-q-body { padding: 32px 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOBBY -->
+  <div id="h-lobby" class="screen active sidebar-layout">
+    <h1 class="lobby-title">He Said She Said</h1>
+    <p class="lobby-sub">Jake &amp; Ellese — Host View</p>
+    <div class="join-box">
+      <h3>Guests scan to join</h3>
+      <div class="join-url">alwaysreddyathletics.github.io/BacheloretteGame/</div>
+      <div id="qr-code"></div>
+    </div>
+    <button class="btn-red" onclick="hostStart()">Start Game</button>
+  </div>
+
+  <!-- QUESTION -->
+  <div id="h-question" class="screen sidebar-layout">
+    <div class="h-q-body">
+      <div class="h-q-circle" id="h-q-num">1</div>
+      <div class="h-q-label">Question</div>
+      <div class="h-q-text" id="h-q-text"></div>
+      <div class="tally-box">
+        <div class="tally-box-title">Live Votes</div>
+        <div id="h-tally-live"></div>
+      </div>
+    </div>
+    <button class="h-reveal-btn" onclick="hostReveal()">
+      Reveal Jake's Answer &rarr;
+    </button>
+  </div>
+
+  <!-- REVEAL -->
+  <div id="h-reveal" class="screen">
+    <div class="h-reveal-title" id="h-reveal-title">Jake's Answer — Q1</div>
+    <div class="video-frame-outer">
+      <div class="video-frame-inner">
+        <iframe id="h-video-frame" src="" allowfullscreen
+          allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+      </div>
+    </div>
+    <div class="tally-box-dark">
+      <div class="tally-box-title">Final Votes</div>
+      <div id="h-tally-final"></div>
+    </div>
+    <button class="btn-next-host" id="h-next-btn" onclick="hostNext()">Next Question &rarr;</button>
+  </div>
+
+  <!-- FINAL -->
+  <div id="h-final" class="screen sidebar-layout">
+    <h1 class="final-title">That's a Wrap!</h1>
+    <p class="final-names">Jake &amp; Ellese</p>
+    <p class="final-msg">Thanks for playing — here's to Jake &amp; Ellese and a lifetime of answered questions.</p>
+    <button class="btn-red" onclick="hostReset()">Play Again</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyC764ibO9kNbgCQwzDun1v_98_F8okcUWg",
+      authDomain: "bachelorette-game2026.firebaseapp.com",
+      databaseURL: "https://bachelorette-game2026-default-rtdb.firebaseio.com",
+      projectId: "bachelorette-game2026",
+      storageBucket: "bachelorette-game2026.firebasestorage.app",
+      messagingSenderId: "152027602257",
+      appId: "1:152027602257:web:3ac4848dbc16725e414770"
+    });
+    const db = firebase.database();
+
+    const questions = [
+      { q: "Who made the first move?",                                              id: "1xzoYb7003We5H9jHIW8ymkkftLoKjzvP" },
+      { q: "Who said \"I love you\" first?",                                        id: "1Uh6JB5tfdf8oXpdg13Uac0aUzwsOpKPQ" },
+      { q: "What is Ellese's favorite color?",                                      id: "1yc8hX_D2xKK01HkCKRWvh3eUbC_uVRKR" },
+      { q: "What is something Ellese is good at?",                                  id: "1SS5fMjMVitITFFzdJ-zxCyEklZSVSvCq" },
+      { q: "What is Jake's most annoying habit?",                                   id: "1Kl1uXrZJmOgPedfdmfSJNH3KoKkI-wtD" },
+      { q: "Who is more likely to win an argument?",                                id: "1nExBjXMPvITwPbo5UT1lm7NVU8xPceCc" },
+      { q: "What is something Ellese does that drives you crazy (in a loving way)?",id: "1X2oMsYPFjOl9CvkPV_yrpTd3tRJjz7HN" },
+      { q: "What is Ellese's most worn outfit at home?",                            id: "1hPcMIXvXccLxhZKbhFdeUQm3t8s37_x-" },
+      { q: "Where do you see you and Jake in five years?",                          id: "1nw0_IF3LazlyntPacmwyp7bDWWp4lIVT" },
+      { q: "What would Jake say Ellese is not good at?",                            id: "1eUHbheu7fD3iSaDEIoKGJR6OctV_Ndyk" },
+      { q: "What is Ellese's weirdest habit?",                                      id: "1k8bihLRvojd2IPJVXbutOhUkIPDRKlYl" },
+      { q: "What is Jake's favorite memory with Ellese?",                           id: "1fSPULYp6exBNmIpNubbHr7Z9ZHORPZI1" },
+      { q: "What is Jake's go-to apology?",                                         id: "1DQDosGsxTUvHkWCaMooTqZ6g6a2I01ew" },
+      { q: "What are you most excited for in married life?",                        id: "1U1qoo-ptHCi8r3IMAnztBXzcc3ANe8Xs" },
+    ];
+
+    let currentQIndex = 0;
+
+    new QRCode(document.getElementById('qr-code'), {
+      text: 'https://alwaysreddyathletics.github.io/BacheloretteGame/',
+      width: 160, height: 160,
+      colorDark: '#7a1515', colorLight: '#ffffff',
+    });
+
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function renderTally(el, votes) {
+      const r = (votes && votes.right) || 0;
+      const w = (votes && votes.wrong) || 0;
+      const total = r + w;
+      const rPct = total ? Math.round((r / total) * 100) : 0;
+      const wPct = total ? 100 - rPct : 0;
+      el.innerHTML = `
+        <div class="tally-row">
+          <div class="tally-lbl">She's Right</div>
+          <div class="tally-bg"><div class="tally-fill" style="width:${rPct}%"></div></div>
+          <div class="tally-count">${r}</div>
+        </div>
+        <div class="tally-row">
+          <div class="tally-lbl">She's Wrong</div>
+          <div class="tally-bg"><div class="tally-fill" style="width:${wPct}%"></div></div>
+          <div class="tally-count">${w}</div>
+        </div>
+        <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
+    }
+
+    function hostStart() {
+      db.ref('game').set({ state: 'question', qIndex: 0, votes: { right: 0, wrong: 0 } });
+    }
+
+    function hostReveal() {
+      db.ref('game/state').set('reveal');
+      document.getElementById('h-video-frame').src =
+        `https://drive.google.com/file/d/${questions[currentQIndex].id}/preview`;
+    }
+
+    function hostNext() {
+      document.getElementById('h-video-frame').src = '';
+      const next = currentQIndex + 1;
+      if (next >= questions.length) {
+        db.ref('game/state').set('done');
+      } else {
+        db.ref('game').set({ state: 'question', qIndex: next, votes: { right: 0, wrong: 0 } });
+      }
+    }
+
+    function hostReset() {
+      db.ref('game').set({ state: 'waiting' });
+      show('h-lobby');
+    }
+
+    db.ref('game').on('value', snap => {
+      const g = snap.val();
+      if (!g || g.state === 'waiting' || !g.state) return;
+
+      const { state, qIndex, votes } = g;
+      currentQIndex = qIndex || 0;
+      const qNum = currentQIndex + 1;
+
+      if (state === 'question') {
+        document.getElementById('h-q-num').textContent = qNum;
+        document.getElementById('h-q-text').textContent = questions[currentQIndex].q;
+        renderTally(document.getElementById('h-tally-live'), votes);
+        show('h-question');
+        return;
+      }
+
+      if (state === 'reveal') {
+        document.getElementById('h-reveal-title').textContent = `Jake's Answer — Q${qNum}`;
+        document.getElementById('h-next-btn').textContent =
+          currentQIndex === questions.length - 1 ? 'Finish Game' : 'Next Question →';
+        renderTally(document.getElementById('h-tally-final'), votes);
+        show('h-reveal');
+        return;
+      }
+
+      if (state === 'done') { show('h-final'); }
+    });
+
+    db.ref('game/votes').on('value', snap => {
+      const el = document.getElementById('h-tally-live');
+      if (el) renderTally(el, snap.val());
+    });
+  </script>
+</body>
+</html>
