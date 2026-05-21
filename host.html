@@ -74,6 +74,16 @@
     .tally-count { font-family: Arial, sans-serif; font-size: 0.85rem; color: var(--red); font-weight: bold; width: 32px; text-align: right; }
     .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #bbb; margin-top: 4px; }
 
+    /* GUEST VOTES LIST */
+    .guest-votes-box { background: white; border-radius: 8px; padding: 16px 20px; max-width: 480px; width: 100%; box-shadow: 0 2px 12px rgba(122,21,21,0.1); }
+    .guest-votes-title { font-family: Arial, sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; color: #aaa; margin-bottom: 10px; text-align: center; }
+    .guest-votes-list { display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto; }
+    .guest-vote-item { display: flex; align-items: center; justify-content: space-between; font-family: Arial, sans-serif; font-size: 0.85rem; color: var(--text-dark); }
+    .gv-name { font-weight: bold; }
+    .badge-match    { background: var(--red); color: white; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 99px; letter-spacing: 0.5px; }
+    .badge-nomatch  { background: #e0e0e0; color: #555; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 99px; letter-spacing: 0.5px; }
+    .guest-votes-empty { font-family: Arial, sans-serif; font-size: 0.8rem; color: #bbb; text-align: center; }
+
     /* BACK NAV */
     .top-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 14px calc(var(--sidebar-w) + 14px); flex-shrink: 0; }
     .btn-back { background: none; border: none; cursor: pointer; font-family: Arial, sans-serif; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; -webkit-tap-highlight-color: transparent; padding: 8px 0; }
@@ -158,6 +168,12 @@
       <div class="tally-box">
         <div class="tally-box-title">Live Votes</div>
         <div id="h-tally-live"></div>
+      </div>
+      <div class="guest-votes-box">
+        <div class="guest-votes-title">Who's Voted</div>
+        <div id="guest-votes-list" class="guest-votes-list">
+          <div class="guest-votes-empty">No votes yet…</div>
+        </div>
       </div>
     </div>
     <button class="h-reveal-btn" onclick="hostReveal()">Reveal Jake's Answer &rarr;</button>
@@ -273,7 +289,7 @@
       if (currentQIndex === 0) {
         goLobby();
       } else {
-        db.ref('game').set({ state: 'question', qIndex: currentQIndex - 1, votes: { match: 0, nomatch: 0 } });
+        db.ref('game').set({ state: 'question', qIndex: currentQIndex - 1, votes: { match: 0, nomatch: 0 }, guestVotes: {} });
       }
     }
 
@@ -282,12 +298,12 @@
       document.getElementById('h-video-frame').src = '';
       document.getElementById('vbtn-match').classList.remove('selected');
       document.getElementById('vbtn-nomatch').classList.remove('selected');
-      db.ref('game').set({ state: 'question', qIndex: currentQIndex, votes: { match: 0, nomatch: 0 } });
+      db.ref('game').set({ state: 'question', qIndex: currentQIndex, votes: { match: 0, nomatch: 0 }, guestVotes: {} });
     }
 
     function hostStart() {
       gameStarted = true;
-      db.ref('game').set({ state: 'question', qIndex: 0, votes: { match: 0, nomatch: 0 } });
+      db.ref('game').set({ state: 'question', qIndex: 0, votes: { match: 0, nomatch: 0 }, guestVotes: {} });
     }
 
     function hostReveal() {
@@ -310,7 +326,7 @@
       if (next >= questions.length) {
         db.ref('game/state').set('done');
       } else {
-        db.ref('game').set({ state: 'question', qIndex: next, votes: { match: 0, nomatch: 0 } });
+        db.ref('game').set({ state: 'question', qIndex: next, votes: { match: 0, nomatch: 0 }, guestVotes: {} });
       }
     }
 
@@ -355,6 +371,24 @@
       if (el) renderTally(el, snap.val());
       const el2 = document.getElementById('h-tally-final');
       if (el2) renderTally(el2, snap.val());
+    });
+
+    function renderGuestVotes(data) {
+      const list = document.getElementById('guest-votes-list');
+      if (!list) return;
+      if (!data) { list.innerHTML = '<div class="guest-votes-empty">No votes yet…</div>'; return; }
+      const entries = Object.values(data).filter(v => v && v.name);
+      if (!entries.length) { list.innerHTML = '<div class="guest-votes-empty">No votes yet…</div>'; return; }
+      list.innerHTML = entries.map(v => {
+        const badge = v.vote === 'match'
+          ? '<span class="badge-match">Match</span>'
+          : '<span class="badge-nomatch">No Match</span>';
+        return `<div class="guest-vote-item"><span class="gv-name">${v.name}</span>${badge}</div>`;
+      }).join('');
+    }
+
+    db.ref('game/guestVotes').on('value', snap => {
+      renderGuestVotes(snap.val());
     });
   </script>
 </body>

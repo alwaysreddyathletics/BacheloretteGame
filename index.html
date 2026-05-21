@@ -31,6 +31,22 @@
     body::before { left: 0; }
     body::after  { right: 0; }
 
+    /* ── PROGRESS BAR ── */
+    #progress-bar-outer {
+      position: fixed;
+      top: 0; left: 18px; right: 18px;
+      height: 4px;
+      background: rgba(122,21,21,0.18);
+      z-index: 25;
+      display: none;
+    }
+    #progress-bar-inner {
+      height: 100%;
+      background: var(--red);
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+
     .screen {
       display: none;
       min-height: 100vh;
@@ -44,7 +60,7 @@
 
     /* WAITING */
     .wait-title { font-size: clamp(2rem, 7vw, 3rem); color: var(--red); font-weight: bold; margin-bottom: 6px; }
-    .wait-sub   { color: var(--red-mid); font-style: italic; margin-bottom: 40px; }
+    .wait-sub   { color: var(--red-mid); font-style: italic; margin-bottom: 32px; }
     .wait-msg   { color: #777; font-size: 1rem; line-height: 1.7; }
     .pulse {
       display: inline-block; width: 10px; height: 10px;
@@ -54,6 +70,31 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* NAME ENTRY */
+    .name-section { margin-top: 28px; width: 100%; max-width: 260px; }
+    .name-prompt {
+      font-family: Arial, sans-serif; font-size: 0.65rem;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: #aaa; margin-bottom: 10px;
+    }
+    .name-row { display: flex; gap: 8px; width: 100%; }
+    .name-input {
+      flex: 1; padding: 12px 14px; border: 2px solid rgba(122,21,21,0.3);
+      background: white; font-family: Georgia, serif; font-size: 1rem;
+      color: var(--text-dark); outline: none; min-width: 0;
+    }
+    .name-input:focus { border-color: var(--red); }
+    .btn-name-save {
+      background: var(--red); color: white; border: none; padding: 12px 18px;
+      font-family: Arial, sans-serif; font-weight: bold; font-size: 0.85rem;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    }
+    .name-greeting {
+      margin-top: 28px;
+      font-family: Arial, sans-serif; font-size: 0.85rem;
+      color: var(--red); letter-spacing: 1px;
     }
 
     /* VOTE */
@@ -99,10 +140,54 @@
     .tally-pct  { font-family: Arial, sans-serif; font-size: 0.78rem; color: var(--red); font-weight: bold; width: 34px; }
     .tally-total { text-align: center; font-family: Arial, sans-serif; font-size: 0.72rem; color: #aaa; margin-top: 6px; }
 
+    /* COUNTDOWN SCREEN */
+    #s-countdown { gap: 0; }
+    .countdown-label {
+      font-family: Arial, sans-serif; font-size: 0.72rem;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--red); opacity: 0.55; margin-bottom: 20px;
+    }
+    .countdown-num {
+      font-size: clamp(7rem, 30vw, 12rem);
+      font-weight: bold; color: var(--red); line-height: 1;
+    }
+    .countdown-num.pop {
+      animation: countdown-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes countdown-pop {
+      0%   { transform: scale(1.5); opacity: 0.3; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
     /* VERDICT RESULT */
-    .verdict-win  { font-size: clamp(2.4rem, 9vw, 4rem); font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
-    .verdict-lose { font-size: clamp(2.4rem, 9vw, 4rem); font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
-    .verdict-sub  { color: #777; font-style: italic; margin-bottom: 32px; font-size: 0.95rem; }
+    .verdict-win {
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1;
+    }
+    .verdict-lose {
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      font-weight: bold; color: var(--red); margin-bottom: 10px; line-height: 1.1;
+    }
+    /* "Drink Bitch!" entrance + shake */
+    .verdict-lose.drink-anim {
+      animation:
+        drink-pop   0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+        drink-shake 0.55s ease-in-out 0.44s;
+    }
+    @keyframes drink-pop {
+      0%   { transform: scale(0.3) rotate(-8deg); opacity: 0; }
+      65%  { transform: scale(1.15) rotate(3deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    @keyframes drink-shake {
+      0%,100% { transform: translateX(0) rotate(0deg); }
+      18%  { transform: translateX(-9px) rotate(-3deg); }
+      36%  { transform: translateX(9px) rotate(3deg); }
+      54%  { transform: translateX(-6px) rotate(-2deg); }
+      72%  { transform: translateX(6px) rotate(2deg); }
+      90%  { transform: translateX(-3px) rotate(-1deg); }
+    }
+    .verdict-sub { color: #777; font-style: italic; margin-bottom: 32px; font-size: 0.95rem; }
 
     /* REVEAL */
     .reveal-headline { font-size: clamp(1.6rem, 6vw, 2.2rem); color: var(--red); font-weight: bold; margin-bottom: 8px; }
@@ -115,16 +200,30 @@
 </head>
 <body>
 
+  <!-- progress bar (always in DOM, shown/hidden via JS) -->
+  <div id="progress-bar-outer"><div id="progress-bar-inner"></div></div>
+
   <!-- WAITING -->
   <div id="s-wait" class="screen active">
     <h1 class="wait-title">He Said She Said</h1>
     <p class="wait-sub">Jake &amp; Ellese</p>
-    <p class="wait-msg" style="margin-top:20px;"><span class="pulse"></span>Waiting for the host to start…</p>
+    <p class="wait-msg"><span class="pulse"></span>Waiting for the host to start…</p>
+
+    <!-- name entry -->
+    <div id="name-entry" class="name-section">
+      <p class="name-prompt">What's your name?</p>
+      <div class="name-row">
+        <input type="text" id="name-input" class="name-input" placeholder="Your name" maxlength="20"
+               onkeydown="if(event.key==='Enter') saveName()" />
+        <button class="btn-name-save" onclick="saveName()">Save</button>
+      </div>
+    </div>
+    <p id="name-greeting" class="name-greeting" style="display:none;"></p>
   </div>
 
   <!-- VOTING -->
   <div id="s-vote" class="screen">
-    <div class="q-label" id="g-q-num">Question 1</div>
+    <div class="q-label" id="g-q-num">Question 1 of 14</div>
     <div class="q-text-guest" id="g-q-text"></div>
     <div id="vote-input">
       <div class="vote-prompt">Will Ellese's answer match Jake's?</div>
@@ -144,21 +243,27 @@
 
   <!-- WATCHING JAKE (no verdict yet) -->
   <div id="s-reveal" class="screen">
-    <div class="q-label" id="g-reveal-num">Question 1</div>
+    <div class="q-label" id="g-reveal-num">Question 1 of 14</div>
     <div class="reveal-headline">Jake's answering now!</div>
     <div class="reveal-sub">Watch the host screen</div>
     <div class="tally-wrap" id="tally-reveal" style="margin:0 auto;"></div>
   </div>
 
+  <!-- COUNTDOWN (3-2-1 before verdict) -->
+  <div id="s-countdown" class="screen">
+    <p class="countdown-label">Get ready…</p>
+    <div id="countdown-num" class="countdown-num">3</div>
+  </div>
+
   <!-- VERDICT RESULT -->
   <div id="s-verdict" class="screen">
-    <div class="q-label" id="g-verdict-num">Question 1</div>
+    <div class="q-label" id="g-verdict-num">Question 1 of 14</div>
     <div id="verdict-win-block" style="display:none;">
       <div class="verdict-win">You're Right!</div>
       <div class="verdict-sub">Great minds think alike</div>
     </div>
     <div id="verdict-lose-block" style="display:none;">
-      <div class="verdict-lose">Drink Bitch!</div>
+      <div class="verdict-lose" id="drink-text">Drink Bitch!</div>
       <div class="verdict-sub">Wrong answer — bottoms up</div>
     </div>
     <div id="verdict-novote-block" style="display:none;">
@@ -204,15 +309,56 @@
       "What is Jake's go-to apology?",
       "What are you most excited for in married life?",
     ];
+    const TOTAL = questions.length;
 
     let myVotes = JSON.parse(sessionStorage.getItem('myVotes') || '{}');
     let currentQIndex = 0;
+    let shownVerdictKey = null; // tracks which verdict already got a countdown
 
+    // ── GUEST IDENTITY ──────────────────────────────
+    function getGuestId() {
+      let id = sessionStorage.getItem('guestId');
+      if (!id) { id = Math.random().toString(36).slice(2, 10); sessionStorage.setItem('guestId', id); }
+      return id;
+    }
+
+    function saveName() {
+      const val = document.getElementById('name-input').value.trim();
+      if (!val) return;
+      sessionStorage.setItem('guestName', val);
+      document.getElementById('name-entry').style.display = 'none';
+      const g = document.getElementById('name-greeting');
+      g.textContent = `Hey, ${val}!`;
+      g.style.display = 'block';
+    }
+
+    // Restore saved name on load
+    (function() {
+      const saved = sessionStorage.getItem('guestName');
+      if (saved) {
+        document.getElementById('name-entry').style.display = 'none';
+        const g = document.getElementById('name-greeting');
+        g.textContent = `Hey, ${saved}!`;
+        g.style.display = 'block';
+      }
+    })();
+
+    // ── PROGRESS BAR ────────────────────────────────
+    function setProgress(qIndex) {
+      document.getElementById('progress-bar-outer').style.display = 'block';
+      document.getElementById('progress-bar-inner').style.width = ((qIndex + 1) / TOTAL * 100) + '%';
+    }
+    function hideProgress() {
+      document.getElementById('progress-bar-outer').style.display = 'none';
+    }
+
+    // ── SCREENS ─────────────────────────────────────
     function show(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
+    // ── TALLY ───────────────────────────────────────
     function renderTally(el, votes) {
       const r = (votes && votes.match) || 0;
       const w = (votes && votes.nomatch) || 0;
@@ -233,27 +379,91 @@
         <div class="tally-total">${total} vote${total !== 1 ? 's' : ''}</div>`;
     }
 
+    // ── VOTE ─────────────────────────────────────────
     function castVote(choice) {
       if (myVotes[currentQIndex]) return;
       myVotes[currentQIndex] = choice;
       sessionStorage.setItem('myVotes', JSON.stringify(myVotes));
+
+      // Increment anonymous tally
       const field = choice === 'match' ? 'match' : 'nomatch';
       db.ref('game/votes/' + field).transaction(v => (v || 0) + 1);
+
+      // Write named vote for host to see
+      const name = sessionStorage.getItem('guestName') || 'Guest';
+      db.ref('game/guestVotes/' + getGuestId()).set({ name, vote: choice });
+
       document.getElementById('vote-input').style.display = 'none';
       document.getElementById('vb-choice-text').textContent = choice === 'match' ? 'Match' : 'No Match';
       document.getElementById('vote-result').style.display = 'block';
     }
 
+    // ── COUNTDOWN ────────────────────────────────────
+    function runCountdown(onComplete) {
+      show('s-countdown');
+      const el = document.getElementById('countdown-num');
+      const steps = ['3', '2', '1'];
+      let i = 0;
+
+      function tick() {
+        el.textContent = steps[i];
+        el.classList.remove('pop');
+        void el.offsetWidth; // force reflow to restart animation
+        el.classList.add('pop');
+        i++;
+        if (i < steps.length) {
+          setTimeout(tick, 950);
+        } else {
+          setTimeout(onComplete, 800);
+        }
+      }
+      tick();
+    }
+
+    // ── VERDICT DISPLAY ──────────────────────────────
+    function showVerdict(qIndex, votes, verdict) {
+      const qNum = qIndex + 1;
+      document.getElementById('g-verdict-num').textContent = `Question ${qNum} of ${TOTAL}`;
+      const myVote = myVotes[qIndex];
+      document.getElementById('verdict-win-block').style.display   = 'none';
+      document.getElementById('verdict-lose-block').style.display  = 'none';
+      document.getElementById('verdict-novote-block').style.display = 'none';
+
+      if (!myVote) {
+        document.getElementById('verdict-novote-block').style.display = 'block';
+      } else if (myVote === verdict) {
+        document.getElementById('verdict-win-block').style.display = 'block';
+      } else {
+        // "Drink Bitch!" with animation
+        document.getElementById('verdict-lose-block').style.display = 'block';
+        const dt = document.getElementById('drink-text');
+        dt.classList.remove('drink-anim');
+        void dt.offsetWidth;
+        dt.classList.add('drink-anim');
+      }
+      renderTally(document.getElementById('tally-verdict'), votes);
+      show('s-verdict');
+    }
+
+    // ── FIREBASE LISTENER ────────────────────────────
     db.ref('game').on('value', snap => {
       const g = snap.val();
-      if (!g || g.state === 'waiting' || !g.state) { show('s-wait'); return; }
+
+      if (!g || g.state === 'waiting' || !g.state) {
+        hideProgress();
+        shownVerdictKey = null;
+        show('s-wait');
+        return;
+      }
 
       const { state, qIndex, votes, verdict } = g;
       currentQIndex = qIndex || 0;
       const qNum = currentQIndex + 1;
 
       if (state === 'question') {
-        document.getElementById('g-q-num').textContent = `Question ${qNum}`;
+        shownVerdictKey = null;
+        setProgress(currentQIndex);
+        document.getElementById('g-q-num').textContent = `Question ${qNum} of ${TOTAL}`;
         document.getElementById('g-q-text').textContent = questions[currentQIndex];
         const voted = myVotes[currentQIndex];
         document.getElementById('vote-input').style.display  = voted ? 'none'  : 'block';
@@ -267,30 +477,36 @@
       }
 
       if (state === 'reveal') {
-        if (verdict) {
-          document.getElementById('g-verdict-num').textContent = `Question ${qNum}`;
-          const myVote = myVotes[currentQIndex];
-          document.getElementById('verdict-win-block').style.display   = 'none';
-          document.getElementById('verdict-lose-block').style.display  = 'none';
-          document.getElementById('verdict-novote-block').style.display = 'none';
-          if (!myVote) {
-            document.getElementById('verdict-novote-block').style.display = 'block';
-          } else if (myVote === verdict) {
-            document.getElementById('verdict-win-block').style.display = 'block';
-          } else {
-            document.getElementById('verdict-lose-block').style.display = 'block';
-          }
-          renderTally(document.getElementById('tally-verdict'), votes);
-          show('s-verdict');
-        } else {
-          document.getElementById('g-reveal-num').textContent = `Question ${qNum}`;
+        setProgress(currentQIndex);
+
+        if (!verdict) {
+          // No verdict yet — show "watching Jake" screen
+          document.getElementById('g-reveal-num').textContent = `Question ${qNum} of ${TOTAL}`;
           renderTally(document.getElementById('tally-reveal'), votes);
           show('s-reveal');
+          return;
+        }
+
+        // Verdict is set — run countdown if this is new
+        const verdictKey = `${currentQIndex}-${verdict}`;
+        if (shownVerdictKey === verdictKey) {
+          // Already processed this verdict — just ensure right screen is up
+          if (!document.getElementById('s-verdict').classList.contains('active') &&
+              !document.getElementById('s-countdown').classList.contains('active')) {
+            showVerdict(currentQIndex, votes, verdict);
+          }
+        } else {
+          shownVerdictKey = verdictKey;
+          runCountdown(() => showVerdict(currentQIndex, votes, verdict));
         }
         return;
       }
 
-      if (state === 'done') { show('s-done'); }
+      if (state === 'done') {
+        setProgress(TOTAL - 1);
+        document.getElementById('progress-bar-inner').style.width = '100%';
+        show('s-done');
+      }
     });
   </script>
 </body>
